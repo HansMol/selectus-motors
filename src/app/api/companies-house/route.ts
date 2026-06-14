@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import { NextRequest, NextResponse } from 'next/server'
 
 export interface CompanyResult {
@@ -26,7 +28,7 @@ export async function GET(request: NextRequest) {
       `https://api.company-information.service.gov.uk/search/companies?q=${encodeURIComponent(q.trim())}&items_per_page=6`,
       {
         headers: {
-          Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString('base64')}`,
+          Authorization: `Basic ${btoa(`${apiKey}:`)}`,
         },
         next: { revalidate: 60 },
       }

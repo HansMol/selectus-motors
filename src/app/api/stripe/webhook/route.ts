@@ -1,6 +1,7 @@
 import Stripe from 'stripe'
 import { NextRequest } from 'next/server'
 
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
