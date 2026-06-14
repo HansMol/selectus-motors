@@ -177,7 +177,7 @@ function CompanySearch({
                 <div className="flex flex-col items-end gap-1 flex-shrink-0">
                   <span className="text-[10px] text-[#6E6E73] font-mono">{r.company_number}</span>
                   <span className={`text-[10px] font-semibold uppercase tracking-wide ${
-                    r.company_status === 'active' ? 'text-green-400' : 'text-red-400'
+                    r.company_status === 'active' ? 'text-[#C4C6CC]' : 'text-[#6E6E73]'
                   }`}>
                     {r.company_status}
                   </span>
@@ -190,19 +190,20 @@ function CompanySearch({
 
       {/* Selected company status */}
       {selected && isActive && (
-        <div className="flex items-center gap-2 px-3 py-2 bg-green-400/10 border border-green-400/20 rounded-lg">
-          <Check size={13} className="text-green-400 flex-shrink-0" />
-          <p className="text-[12px] text-green-400">
-            <span className="font-semibold">{selected.title}</span> — active company · {selected.company_number}
+        <div className="flex items-center gap-2 px-3 py-2 bg-[#C4C6CC]/10 border border-[#C4C6CC]/25 rounded-lg">
+          <Check size={13} className="text-[#C4C6CC] flex-shrink-0" />
+          <p className="text-[12px] text-white">
+            <span className="font-semibold">{selected.title}</span>
+            <span className="text-[#6E6E73]"> — active · {selected.company_number}</span>
           </p>
         </div>
       )}
 
       {selected && isDissolved && (
-        <div className="flex items-center gap-2 px-3 py-2 bg-red-400/10 border border-red-400/20 rounded-lg">
-          <AlertCircle size={13} className="text-red-400 flex-shrink-0" />
-          <p className="text-[12px] text-red-400">
-            This company is listed as <span className="font-semibold">{selected.company_status}</span> on Companies House. Please contact us if this is incorrect.
+        <div className="flex items-center gap-2 px-3 py-2 bg-[#1C1C1E] border border-[#2A2A2E] rounded-lg">
+          <AlertCircle size={13} className="text-[#6E6E73] flex-shrink-0" />
+          <p className="text-[12px] text-[#6E6E73]">
+            <span className="text-white font-semibold">{selected.title}</span> is listed as <span className="font-semibold">{selected.company_status}</span> on Companies House — we can&apos;t verify this automatically. <span className="text-[#C4C6CC]">Contact us and we&apos;ll verify you another way.</span>
           </p>
         </div>
       )}
@@ -358,7 +359,7 @@ function SuccessScreen({ data }: { data: WizardData }) {
 
       {isVerified ? (
         <p className="text-[16px] text-[#6E6E73] leading-relaxed mb-10">
-          <span className="text-green-400 font-medium">{data.businessName}</span> verified via Companies House.
+          <span className="text-white font-medium">{data.businessName}</span> verified via Companies House.
           Your listings will go live as soon as you add your inventory.
         </p>
       ) : (
@@ -413,11 +414,12 @@ function SuccessScreen({ data }: { data: WizardData }) {
 
 // ── Wizard ────────────────────────────────────────────────────────────────
 export function DealerWizard() {
-  const [step, setStep]             = useState(1)
-  const [data, setData]             = useState<Partial<WizardData>>({})
-  const [submitting, setSubmitting] = useState(false)
+  const [step, setStep]               = useState(1)
+  const [data, setData]               = useState<Partial<WizardData>>({})
+  const [submitting, setSubmitting]   = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
-  const [done, setDone]             = useState(false)
+  const [done, setDone]               = useState(false)
+  const [isSoleTrader, setIsSoleTrader] = useState(false)
 
   const form1 = useForm<Step1Data>({
     resolver: zodResolver(step1Schema),
@@ -473,7 +475,14 @@ export function DealerWizard() {
     setSubmitting(true)
     setSubmitError(null)
 
+    const verifiedVia = isSoleTrader
+      ? 'Stripe Identity (pending)'
+      : final.companyStatus === 'active'
+        ? 'Companies House (auto)'
+        : 'Manual review required'
+
     try {
+      // Submit registration to Formspree regardless of path
       const body = new FormData()
       body.append('_subject',       `New dealer registration — ${final.businessName}`)
       body.append('firstName',      final.firstName)
@@ -482,27 +491,41 @@ export function DealerWizard() {
       body.append('phone',          final.phone)
       body.append('businessName',   final.businessName)
       body.append('companyNumber',  final.companyNumber ?? 'Not provided')
-      body.append('companyStatus',  final.companyStatus ?? 'Unverified')
+      body.append('companyStatus',  isSoleTrader ? 'sole-trader' : (final.companyStatus ?? 'Unverified'))
       body.append('city',           final.city)
       body.append('postcode',       final.postcode)
       body.append('website',        final.website ?? '')
       body.append('makes',          final.makes.join(', '))
       body.append('inventorySize',  final.inventorySize)
       body.append('priceRange',     final.priceRange)
-      body.append('verifiedVia',    final.companyStatus === 'active' ? 'Companies House (auto)' : 'Manual review required')
+      body.append('verifiedVia',    verifiedVia)
 
-      const res = await fetch('https://formspree.io/f/xvznwyrv', {
+      await fetch('https://formspree.io/f/xvznwyrv', {
         method: 'POST',
         body,
         headers: { Accept: 'application/json' },
       })
 
-      if (res.ok) {
-        setDone(true)
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      } else {
-        setSubmitError('Something went wrong. Please try again or email us at selectusmotors@gmail.com')
+      // Sole trader → redirect to Stripe Identity
+      if (isSoleTrader) {
+        const idRes = await fetch('/api/stripe/identity', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: final.email,
+            name:  `${final.firstName} ${final.lastName}`,
+          }),
+        })
+        if (idRes.ok) {
+          const { url } = await idRes.json() as { url: string }
+          window.location.href = url
+          return
+        }
+        // Stripe not configured yet — fall through to success screen
       }
+
+      setDone(true)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {
       setSubmitError('Connection error. Please check your internet and try again.')
     } finally {
@@ -552,32 +575,88 @@ export function DealerWizard() {
         {/* Step 2 — Dealership */}
         {step === 2 && (
           <form onSubmit={onStep2} className="flex flex-col gap-5">
-            <Field
-              label="Find your business"
-              hint="Search Companies House to verify your dealership automatically."
-              error={form2.formState.errors.businessName?.message}
-            >
-              <CompanySearch
-                onSelect={(company) => {
-                  form2.setValue('businessName',   company.title,          { shouldValidate: true })
-                  form2.setValue('companyNumber',  company.company_number, { shouldValidate: true })
-                  form2.setValue('companyStatus',  company.company_status, { shouldValidate: true })
-                }}
-                onClear={() => {
+
+            {/* Business type toggle */}
+            <div className="flex gap-2 p-1 bg-[#1C1C1E] rounded-lg">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSoleTrader(false)
                   form2.setValue('companyNumber', '')
                   form2.setValue('companyStatus', '')
                 }}
-              />
-            </Field>
+                className={`flex-1 py-2 rounded-md text-[12px] font-semibold transition-colors ${
+                  !isSoleTrader
+                    ? 'bg-[#C4C6CC] text-[#0A0A0F]'
+                    : 'text-[#6E6E73] hover:text-white'
+                }`}
+              >
+                Limited company
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSoleTrader(true)
+                  form2.setValue('companyNumber', '')
+                  form2.setValue('companyStatus', '')
+                }}
+                className={`flex-1 py-2 rounded-md text-[12px] font-semibold transition-colors ${
+                  isSoleTrader
+                    ? 'bg-[#C4C6CC] text-[#0A0A0F]'
+                    : 'text-[#6E6E73] hover:text-white'
+                }`}
+              >
+                Sole trader
+              </button>
+            </div>
 
-            {/* Manual business name fallback (shown if no Companies House match) */}
-            <Field label="Business name" error={form2.formState.errors.businessName?.message}>
+            {/* Ltd path: Companies House search */}
+            {!isSoleTrader && (
+              <Field
+                label="Find your business"
+                hint="Search Companies House to verify your dealership automatically."
+                error={form2.formState.errors.businessName?.message}
+              >
+                <CompanySearch
+                  onSelect={(company) => {
+                    form2.setValue('businessName',   company.title,          { shouldValidate: true })
+                    form2.setValue('companyNumber',  company.company_number, { shouldValidate: true })
+                    form2.setValue('companyStatus',  company.company_status, { shouldValidate: true })
+                  }}
+                  onClear={() => {
+                    form2.setValue('companyNumber', '')
+                    form2.setValue('companyStatus', '')
+                  }}
+                />
+              </Field>
+            )}
+
+            {/* Business / trading name */}
+            <Field
+              label={isSoleTrader ? 'Trading name' : 'Business name'}
+              error={form2.formState.errors.businessName?.message}
+            >
               <TextInput
                 {...form2.register('businessName')}
-                placeholder="Smith Motors Ltd"
+                placeholder={isSoleTrader ? 'e.g. Smith Car Sales' : 'Smith Motors Ltd'}
                 hasError={!!form2.formState.errors.businessName}
               />
             </Field>
+
+            {/* Sole trader: ID verification notice */}
+            {isSoleTrader && (
+              <div className="flex items-start gap-3 bg-[#C4C6CC]/8 border border-[#C4C6CC]/20 rounded-lg px-4 py-3">
+                <div className="w-5 h-5 rounded-full bg-[#C4C6CC]/15 border border-[#C4C6CC]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-[10px] text-[#C4C6CC] font-bold">i</span>
+                </div>
+                <div>
+                  <p className="text-[12px] font-semibold text-white mb-0.5">ID verification required</p>
+                  <p className="text-[12px] text-[#6E6E73] leading-relaxed">
+                    After registration, we&apos;ll verify your identity with a government-issued ID (passport or driving licence) and a quick selfie. Takes under 2 minutes.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-2 gap-4">
               <Field label="Town / city" error={form2.formState.errors.city?.message}>
