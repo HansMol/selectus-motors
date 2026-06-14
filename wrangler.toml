@@ -4,4 +4,9 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
 
 [vars]
-NEXT_PUBLIC_BASE_URL = "https://selectusmotors.com"
+NEXT_PUBLIC_BASE_URL                           = "https://selectusmotors.com"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY              = "pk_test_cG9ldGljLWdsb3d3b3JtLTY4LmNsZXJrLmFjY291bnRzLmRldiQ"
+NEXT_PUBLIC_CLERK_SIGN_IN_URL                  = "/sign-in"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL                  = "/sign-up"
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL = "/dashboard"
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL = "/dashboard"
