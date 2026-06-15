@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: '/dealers', destination: '/dealers/index.html' },
+    ]
+  },
 }
 
 export default nextConfig
