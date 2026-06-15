@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ShieldCheck, TrendingDown, Star } from 'lucide-react'
+import { ShieldCheck, Star } from 'lucide-react'
 import { ListingCard } from '@/components/listings/listing-card'
 import { mockListings } from '@/lib/mock-data'
 
@@ -24,12 +24,14 @@ export default function HomePage() {
           <p className="text-[12px] font-semibold tracking-[0.1em] uppercase text-[#C4C6CC] mb-8 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#C4C6CC]">
             UK Car Marketplace
           </p>
-          <h1 className="text-[clamp(48px,6vw,76px)] font-light leading-[1.06] tracking-[-0.01em] mb-9">
-            Find your next car.<br />
-            <span className="text-[#C4C6CC]">Your call. Your deal.</span>
+          <h1 className="text-[clamp(48px,6vw,76px)] font-light leading-[1.06] tracking-[-0.01em] mb-4">
+            Find your next car.
           </h1>
+          <p className="text-[clamp(20px,2.5vw,28px)] font-light text-[#C4C6CC] leading-snug tracking-[-0.01em] mb-9">
+            Clean listings. Verified dealers. Direct contact.
+          </p>
           <p className="text-lg text-[#6E6E73] leading-relaxed mb-12 max-w-lg font-light">
-            Every enquiry goes directly to the dealer — no platform inbox, no reservation gates, no intermediation. Just you and the seller.
+            No sponsored slots, no reservation fees, no platform inbox. Search, find, call.
           </p>
 
           <form action="/search" method="GET" className="max-w-xl mb-8">
@@ -49,6 +51,12 @@ export default function HomePage() {
             </div>
           </form>
 
+          <p className="text-[13px] text-[#6E6E73] mb-4 font-light">
+            <Link href="#notify" className="text-[#C4C6CC] hover:text-white underline underline-offset-2 transition-colors">
+              Notify me when new cars land →
+            </Link>
+          </p>
+
           <div className="flex flex-wrap gap-2">
             {makes.map(make => (
               <Link
@@ -65,9 +73,9 @@ export default function HomePage() {
         {/* Hero stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-[#1C1C1E] pt-12">
           {[
-            { label: 'Verified sellers', value: '100%' },
-            { label: 'Listing cost', value: 'Free' },
-            { label: 'Hidden fees', value: '£0' },
+            { label: 'Verified dealers', value: '100%' },
+            { label: 'To enquire', value: '£0' },
+            { label: 'Reservation fees', value: 'None' },
             { label: 'Direct contact', value: 'Always' },
           ].map((stat, i) => (
             <div key={i} className="pr-8 border-r border-[#1C1C1E] mr-8 last:border-r-0 last:mr-0 mb-8 md:mb-0">
@@ -81,23 +89,14 @@ export default function HomePage() {
       {/* Trust signals */}
       <section className="bg-white border-b border-[#E5E5E7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-md bg-[#0A0A0F] flex items-center justify-center shrink-0">
                 <ShieldCheck size={18} className="text-[#C4C6CC]" />
               </div>
               <div>
-                <p className="font-semibold text-[#0A0A0F] text-sm">Verified sellers</p>
-                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Every dealer independently verified. Private sellers identity-checked at enquiry.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-md bg-[#0A0A0F] flex items-center justify-center shrink-0">
-                <TrendingDown size={18} className="text-[#C4C6CC]" />
-              </div>
-              <div>
-                <p className="font-semibold text-[#0A0A0F] text-sm">Transparent pricing</p>
-                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Every listing rated against market data. Know if you&apos;re getting a fair deal before you enquire.</p>
+                <p className="font-semibold text-[#0A0A0F] text-sm">Verified dealers</p>
+                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Every dealer independently verified through Companies House before their first listing goes live.</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -106,7 +105,7 @@ export default function HomePage() {
               </div>
               <div>
                 <p className="font-semibold text-[#0A0A0F] text-sm">Real reviews</p>
-                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Buyer reviews on every dealer. Verified purchase history — no fake five-stars.</p>
+                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Verified buyer reviews on every dealer. No incentivised five-stars.</p>
               </div>
             </div>
           </div>
@@ -163,12 +162,12 @@ export default function HomePage() {
           <h2 className="text-[clamp(32px,4vw,48px)] font-light tracking-tight mb-4">
             Selling your car?
           </h2>
-          <p className="text-[#6E6E73] mb-10 max-w-md mx-auto leading-relaxed">List in minutes. No hidden fees. Every enquiry goes straight to you — not a platform inbox.</p>
+          <p className="text-[#6E6E73] mb-10 max-w-md mx-auto leading-relaxed">We&apos;re onboarding our founding dealer partners now. Verified listings, direct buyer contact, no platform cut.</p>
           <Link
-            href="/sell"
+            href="/dealers/register"
             className="inline-block bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-8 py-3.5 rounded-md hover:bg-[#A8AAB0] transition-colors text-sm"
           >
-            List your car — it&apos;s free
+            Apply for early access →
           </Link>
         </div>
       </section>
