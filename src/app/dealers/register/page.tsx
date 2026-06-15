@@ -1,4 +1,3 @@
-import { Nav } from '@/components/layout/nav'
 import { DealerWizard } from './wizard'
 
 export const metadata = {
@@ -8,11 +7,8 @@ export const metadata = {
 
 export default function DealerRegisterPage() {
   return (
-    <>
-      <Nav />
-      <main className="min-h-screen bg-[#0A0A0F] pt-12 pb-20">
-        <DealerWizard />
-      </main>
-    </>
+    <div className="min-h-screen bg-[#0A0A0F] pt-12 pb-20">
+      <DealerWizard />
+    </div>
   )
 }

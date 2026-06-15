@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -528,9 +528,11 @@ function SuccessScreen({ data }: { data: ListingFormData }) {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function NewListingPage() {
-  const [done, setDone]         = useState(false)
+  const [done, setDone]           = useState(false)
   const [submitted, setSubmitted] = useState<ListingFormData | null>(null)
-  const [saving, setSaving]     = useState(false)
+  const [saving, setSaving]       = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const submitIntent              = useRef<'draft' | 'live'>('draft')
 
   const {
     register,
@@ -553,10 +555,20 @@ export default function NewListingPage() {
 
   async function onSubmit(data: ListingFormData) {
     setSaving(true)
-    // TODO: POST to /api/listings (Supabase) when wired
-    await new Promise(r => setTimeout(r, 800))
-    setSubmitted(data)
-    setDone(true)
+    setSaveError(null)
+    const status = submitIntent.current
+    const res = await fetch('/api/listings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...data, status }),
+    })
+    if (res.ok) {
+      setSubmitted({ ...data, status })
+      setDone(true)
+    } else {
+      const json = await res.json().catch(() => ({}))
+      setSaveError(json.error || 'Something went wrong. Please try again.')
+    }
     setSaving(false)
   }
 
@@ -580,7 +592,10 @@ export default function NewListingPage() {
           <p className="text-[14px] text-[#6E6E73] mt-1">Fill in the details below. You can save as a draft and publish later.</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={handleSubmit(onSubmit, (errs) => {
+          const fields = Object.keys(errs).join(', ')
+          setSaveError(`Please fix the following fields: ${fields}`)
+        })} className="space-y-8">
 
           {/* ── Section 1: Vehicle details ─────────────────────────────── */}
           <div className="bg-white border border-[#E5E5E7] rounded-xl p-6">
@@ -806,23 +821,30 @@ export default function NewListingPage() {
             </div>
           </div>
 
+          {/* ── Error banner ──────────────────────────────────────────── */}
+          {saveError && (
+            <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-[13px] text-red-600">
+              {saveError}
+            </div>
+          )}
+
           {/* ── Submit ────────────────────────────────────────────────── */}
           <div className="flex flex-col sm:flex-row gap-3 pb-10">
             <button
               type="submit"
               disabled={saving}
-              onClick={() => setValue('status', 'draft')}
+              onClick={() => { submitIntent.current = 'draft' }}
               className="flex-1 py-3 rounded-lg text-[14px] font-semibold border border-[#E5E5E7] bg-white text-[#0A0A0F] hover:border-[#C4C6CC] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {saving && watch('status') === 'draft' ? 'Saving…' : 'Save as draft'}
+              {saving && submitIntent.current === 'draft' ? 'Saving…' : 'Save as draft'}
             </button>
             <button
               type="submit"
               disabled={saving}
-              onClick={() => setValue('status', 'live')}
+              onClick={() => { submitIntent.current = 'live' }}
               className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-lg text-[14px] font-semibold bg-[#0A0A0F] hover:bg-[#1C1C1E] text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {saving && watch('status') === 'live' ? 'Publishing…' : (
+              {saving ? 'Publishing…' : (
                 <>Publish listing <ChevronRight size={16} /></>
               )}
             </button>

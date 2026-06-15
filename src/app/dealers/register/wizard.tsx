@@ -482,29 +482,17 @@ export function DealerWizard() {
         : 'Manual review required'
 
     try {
-      // Submit registration to Formspree regardless of path
-      const body = new FormData()
-      body.append('_subject',       `New dealer registration — ${final.businessName}`)
-      body.append('firstName',      final.firstName)
-      body.append('lastName',       final.lastName)
-      body.append('email',          final.email)
-      body.append('phone',          final.phone)
-      body.append('businessName',   final.businessName)
-      body.append('companyNumber',  final.companyNumber ?? 'Not provided')
-      body.append('companyStatus',  isSoleTrader ? 'sole-trader' : (final.companyStatus ?? 'Unverified'))
-      body.append('city',           final.city)
-      body.append('postcode',       final.postcode)
-      body.append('website',        final.website ?? '')
-      body.append('makes',          final.makes.join(', '))
-      body.append('inventorySize',  final.inventorySize)
-      body.append('priceRange',     final.priceRange)
-      body.append('verifiedVia',    verifiedVia)
-
-      await fetch('https://formspree.io/f/xvznwyrv', {
+      const res = await fetch('/api/dealers/register', {
         method: 'POST',
-        body,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...final, isSoleTrader, verifiedVia }),
       })
+
+      if (!res.ok) {
+        const err = await res.json()
+        setSubmitError(err.error ?? 'Registration failed. Please try again.')
+        return
+      }
 
       // Sole trader → redirect to Stripe Identity
       if (isSoleTrader) {
@@ -521,7 +509,6 @@ export function DealerWizard() {
           window.location.href = url
           return
         }
-        // Stripe not configured yet — fall through to success screen
       }
 
       setDone(true)

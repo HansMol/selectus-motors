@@ -9,3 +9,4 @@ binding = "ASSETS"
 
 [vars]
 NEXT_PUBLIC_BASE_URL = "https://selectusmotors.com"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_test_51TibFoFVFkk5AvROr1RRr3nz5RgLWZfdZRqsx2d1WL4vwoCadm8UV5nt1UV81mRWZbVo8AAx7EvW0ttyn5hEFD4L005Mz9PxSc"
