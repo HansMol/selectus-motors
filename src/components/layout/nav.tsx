@@ -22,11 +22,8 @@ export function Nav() {
             <Link href="/search" className="text-sm font-medium text-[#6E6E73] hover:text-white transition-colors">
               Search Cars
             </Link>
-            <Link href="/search?sellerType=dealer" className="text-sm font-medium text-[#6E6E73] hover:text-white transition-colors">
+            <Link href="/dealers/" className="text-sm font-medium text-[#6E6E73] hover:text-white transition-colors">
               Dealers
-            </Link>
-            <Link href="/sell" className="text-sm font-medium text-[#6E6E73] hover:text-white transition-colors">
-              Sell Your Car
             </Link>
           </nav>
 
@@ -71,8 +68,7 @@ export function Nav() {
       {open && (
         <div className="md:hidden border-t border-[rgba(255,255,255,0.05)] bg-[#0A0A0F] px-4 py-4 space-y-3">
           <Link href="/search" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Search Cars</Link>
-          <Link href="/search?sellerType=dealer" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Dealers</Link>
-          <Link href="/sell" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Sell Your Car</Link>
+          <Link href="/dealers/" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Dealers</Link>
           <div className="pt-2 border-t border-[#1C1C1E] flex gap-3">
             {isSignedIn ? (
               <>

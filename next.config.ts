@@ -9,9 +9,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
+  async redirects() {
     return [
-      { source: '/dealers', destination: '/dealers/index.html' },
+      { source: '/dealers', destination: '/dealers/', permanent: false },
     ]
   },
 }
