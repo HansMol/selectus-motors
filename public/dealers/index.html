@@ -600,7 +600,7 @@
     /* ── PRICING ── */
     .pricing-section {
       background: var(--cloud);
-      padding: 96px 64px;
+      padding: 72px 64px;
     }
 
     .pricing-inner {
@@ -609,25 +609,12 @@
     }
 
     .pricing-trigger {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--black);
-      color: var(--platinum);
+      display: block;
+      color: var(--platinum-deep);
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.04em;
-      padding: 10px 20px;
-      border-radius: 100px;
       margin-bottom: 40px;
-    }
-
-    .pricing-trigger-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4CD964;
-      flex-shrink: 0;
     }
 
     .pricing-headline {
@@ -643,7 +630,7 @@
       font-size: 17px;
       color: var(--stone);
       line-height: 1.7;
-      margin-bottom: 56px;
+      margin-bottom: 24px;
       max-width: 520px;
     }
 
@@ -658,26 +645,9 @@
       background: var(--white);
       border: 1px solid var(--silver-line);
       border-radius: 12px;
-      padding: 40px;
-    }
-
-    .pricing-card.featured {
-      border-color: var(--black);
-      position: relative;
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: -13px;
-      left: 40px;
-      background: var(--black);
-      color: var(--platinum);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 100px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
     }
 
     .pricing-tier {
@@ -686,11 +656,14 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--stone);
-      margin-bottom: 24px;
+      margin-bottom: 4px;
     }
 
-    .pricing-founding {
-      margin-bottom: 6px;
+    .pricing-tier-desc {
+      font-size: 13px;
+      color: var(--stone);
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
     .pricing-founding-label {
@@ -716,7 +689,7 @@
     }
 
     .pricing-number {
-      font-size: 52px;
+      font-size: 44px;
       font-weight: 300;
       color: var(--black);
       letter-spacing: -0.02em;
@@ -732,8 +705,8 @@
     .pricing-standard {
       font-size: 13px;
       color: var(--stone);
-      margin-bottom: 32px;
-      padding-bottom: 32px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
       border-bottom: 1px solid var(--silver-line);
     }
 
@@ -746,8 +719,9 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 36px;
+      gap: 12px;
+      margin-bottom: 0;
+      flex: 1;
     }
 
     .pricing-features li {
@@ -785,6 +759,7 @@
       border-radius: 6px;
       text-decoration: none;
       transition: background 0.2s ease;
+      margin-top: auto;
     }
 
     .pricing-cta:hover { background: var(--charcoal); }
@@ -958,7 +933,7 @@
         <div class="screen-dots"><span></span><span></span><span></span></div>
         <div class="screen-bar">selectusmotors.com</div>
       </div>
-      <img src="/screenshots/detail.png" alt="Selectus Motors — buyer contacts dealer directly">
+      <img src="screenshots/detail.png" alt="Selectus Motors — buyer contacts dealer directly">
     </div>
   </div>
 
@@ -1050,7 +1025,7 @@
       <div class="screen-dots"><span></span><span></span><span></span></div>
       <div class="screen-bar">selectusmotors.com</div>
     </div>
-    <img src="/screenshots/hero.png" alt="Selectus Motors — consumer homepage" class="screen-img">
+    <img src="screenshots/hero.png" alt="Selectus Motors — consumer homepage" class="screen-img">
   </div>
 
   <div class="screen-grid">
@@ -1059,14 +1034,14 @@
         <div class="screen-dots"><span></span><span></span><span></span></div>
         <div class="screen-bar">selectusmotors.com/search</div>
       </div>
-      <img src="/screenshots/listings.png" alt="Selectus Motors — listing results" class="screen-img">
+      <img src="screenshots/listings.png" alt="Selectus Motors — listing results" class="screen-img">
     </div>
     <div class="screen-wrap">
       <div class="screen-chrome">
         <div class="screen-dots"><span></span><span></span><span></span></div>
         <div class="screen-bar">selectusmotors.com/cars/porsche-911…</div>
       </div>
-      <img src="/screenshots/detail.png" alt="Selectus Motors — car detail and enquiry" class="screen-img">
+      <img src="screenshots/detail.png" alt="Selectus Motors — car detail and enquiry" class="screen-img">
     </div>
   </div>
 </section>
@@ -1113,19 +1088,18 @@
 <section class="pricing-section" id="pricing">
   <div class="pricing-inner">
 
-    <div class="pricing-trigger">
-      <span class="pricing-trigger-dot"></span>
-      You don't pay until a buyer contacts you
-    </div>
-
     <h2 class="pricing-headline">Straightforward pricing.<br>No surprises.</h2>
-    <p class="pricing-sub">List free. The moment a buyer makes contact through your listing, billing begins. If it doesn't work for you, you pay nothing.</p>
+
+    <p class="pricing-trigger" style="margin-bottom: 24px;">Billing starts with your first buyer enquiry</p>
+
+    <p class="pricing-sub">List free. When your first buyer enquiry arrives, billing begins on the 1st of the following month — not immediately. If a buyer enquires in June, your first charge is 1 July. No enquiry, no charge.</p>
 
     <div class="pricing-cards">
 
       <!-- SOLO -->
       <div class="pricing-card">
         <p class="pricing-tier">Solo</p>
+        <p class="pricing-tier-desc">Up to 20 cars in stock. The right plan for most independent dealers.</p>
         <p class="pricing-founding-label">Founding rate — first 50 dealers</p>
         <div class="pricing-amount">
           <span class="pricing-currency">£</span>
@@ -1135,18 +1109,17 @@
         <p class="pricing-standard">Standard rate <span>£79/mo</span> after founding places are filled</p>
         <ul class="pricing-features">
           <li>Up to 20 active listings</li>
-          <li>Every enquiry goes direct to you</li>
-          <li>Companies House verified badge</li>
+          <li>Every enquiry goes direct to you — no platform inbox</li>
+          <li>Verified dealer badge</li>
           <li>Listing performance dashboard</li>
-          <li>Pay annually — 2 months free</li>
+          <li>Annual option — 2 months free</li>
         </ul>
-        <a href="/dealers/register" class="pricing-cta light">Register as founding dealer →</a>
       </div>
 
       <!-- PRO -->
-      <div class="pricing-card featured">
-        <span class="pricing-badge">Most popular</span>
+      <div class="pricing-card">
         <p class="pricing-tier">Pro</p>
+        <p class="pricing-tier-desc">More than 20 cars, or you want a showcase. No listing cap.</p>
         <p class="pricing-founding-label">Founding rate — first 50 dealers</p>
         <div class="pricing-amount">
           <span class="pricing-currency">£</span>
@@ -1156,15 +1129,19 @@
         <p class="pricing-standard">Standard rate <span>£189/mo</span> after founding places are filled</p>
         <ul class="pricing-features">
           <li>Unlimited active listings</li>
-          <li>Every enquiry goes direct to you</li>
-          <li>Companies House verified badge</li>
+          <li>Every enquiry goes direct to you — no platform inbox</li>
+          <li>Spotlight showcase — pin 3 vehicles to the top of your profile</li>
+          <li>Verified dealer badge</li>
           <li>Listing performance dashboard</li>
-          <li>Spotlight showcase — pin 3 vehicles to your profile</li>
-          <li>Pay annually — 2 months free</li>
+          <li>Annual option — 2 months free</li>
         </ul>
-        <a href="/dealers/register" class="pricing-cta">Register as founding dealer →</a>
       </div>
 
+    </div>
+
+    <div style="text-align:center;margin:32px 0 40px;">
+      <a href="https://selectusmotors.com/dealers/register" style="display:inline-block;background:var(--black);color:var(--white);font-family:var(--font);font-size:14px;font-weight:600;letter-spacing:0.04em;padding:15px 36px;border-radius:6px;text-decoration:none;transition:background 0.2s ease;" onmouseover="this.style.background='#1C1C1E'" onmouseout="this.style.background='#0A0A0F'">Register your dealership →</a>
+      <p style="font-size:13px;color:var(--stone);margin-top:12px;">No payment details required. You choose your plan during registration.</p>
     </div>
 
     <div class="pricing-footnotes">
@@ -1185,7 +1162,7 @@
             <path d="M5 2v3M11 2v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
         </span>
-        <span>Annual billing saves 2 months. Pay for 10, list for 12. Switch anytime before renewal.</span>
+        <span>Annual billing saves 2 months. Pay for 10, list for 12. Switch to monthly before your renewal date — no forced rollover.</span>
       </div>
       <div class="pricing-footnote">
         <span class="pricing-footnote-icon">
@@ -1203,10 +1180,10 @@
 <!-- SIGNUP -->
 <section class="signup-section" id="signup">
   <div class="signup-inner">
-    <p class="section-label">List with Selectus Motors</p>
+    <p class="section-label">List with Selectus</p>
     <h2 class="signup-headline">Get your inventory<br>in front of buyers.</h2>
-    <p class="signup-sub">Founding dealer access — no platform cut. Register in minutes, verified instantly through Companies House.</p>
-    <a href="/dealers/register" class="form-submit" style="display:inline-block;text-decoration:none;text-align:center;">Register your dealership &rarr;</a>
+    <p class="signup-sub">No payment details required. Ltd companies verified instantly via Companies House. Sole traders verified via ID — takes minutes.</p>
+    <a href="https://selectusmotors.com/dealers/register" class="form-submit" style="display:inline-block;text-decoration:none;text-align:center;">Register your dealership &rarr;</a>
     <p class="form-note">No payment required. No commitment.</p>
   </div>
 </section>
@@ -1214,7 +1191,7 @@
 <!-- FOOTER -->
 <footer>
   <a href="#" class="wordmark">SELECTUS<span>&nbsp;MOTORS</span></a>
-  <p class="footer-note">selectusmotors.com &nbsp;·&nbsp; Built for UK dealers &nbsp;·&nbsp; &copy; 2026 Selectus Motors Ltd &nbsp;·&nbsp; <a href="/dealers/terms.html" style="color: var(--platinum-deep); text-decoration: none;">Dealer Terms</a></p>
+  <p class="footer-note">selectusmotors.com &nbsp;·&nbsp; Built for UK dealers &nbsp;·&nbsp; &copy; 2026 Selectus Motors Ltd &nbsp;·&nbsp; <a href="/privacy.html" style="color: var(--platinum-deep); text-decoration: none;">Privacy</a> &nbsp;·&nbsp; <a href="/terms.html" style="color: var(--platinum-deep); text-decoration: none;">Terms</a></p>
 </footer>
 
 <script>
