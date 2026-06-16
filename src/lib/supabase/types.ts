@@ -38,12 +38,15 @@ type ListingRow = {
   price: number
   status: 'draft' | 'live' | 'sold' | 'archived'
   description: string
+  photos: string[]
   created_at: string
   updated_at: string
 }
 
 type ListingInsert = Omit<ListingRow, 'id' | 'created_at' | 'updated_at'>
 type ListingUpdate = Partial<ListingInsert>
+
+export type { DealerRow, DealerInsert, DealerUpdate, ListingRow, ListingInsert, ListingUpdate }
 
 export type Database = {
   public: {

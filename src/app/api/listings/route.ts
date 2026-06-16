@@ -69,6 +69,7 @@ export async function POST(request: Request) {
       price: body.price,
       status: body.status,
       description: body.description,
+      photos: body.photos ?? [],
     })
     .select('id')
     .single()

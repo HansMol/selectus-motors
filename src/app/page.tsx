@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ShieldCheck, Star } from 'lucide-react'
 import { ListingCard } from '@/components/listings/listing-card'
-import { mockListings } from '@/lib/mock-data'
+import { createServerClient } from '@/lib/supabase/server'
 
 const makes = ['BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Ford', 'Toyota', 'Porsche', 'Mazda', 'Land Rover', 'Volvo']
 const bodyTypes = [
@@ -13,8 +13,15 @@ const bodyTypes = [
   { label: 'Convertibles', value: 'convertible' },
 ]
 
-export default function HomePage() {
-  const recentListings = [...mockListings].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()).slice(0, 6)
+export default async function HomePage() {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from('listings')
+    .select('*')
+    .eq('status', 'live')
+    .order('created_at', { ascending: false })
+    .limit(6)
+  const recentListings = data ?? []
 
   return (
     <div>

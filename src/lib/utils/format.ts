@@ -6,6 +6,14 @@ export function formatPrice(pence: number): string {
   }).format(pence / 100)
 }
 
+export function formatPricePounds(pounds: number): string {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    maximumFractionDigits: 0,
+  }).format(pounds)
+}
+
 export function formatMileage(miles: number): string {
   return new Intl.NumberFormat('en-GB').format(miles) + ' miles'
 }
