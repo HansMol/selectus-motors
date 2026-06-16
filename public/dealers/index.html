@@ -597,6 +597,234 @@
       line-height: 1.7;
     }
 
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--cloud);
+      padding: 96px 64px;
+    }
+
+    .pricing-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .pricing-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black);
+      color: var(--platinum);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 10px 20px;
+      border-radius: 100px;
+      margin-bottom: 40px;
+    }
+
+    .pricing-trigger-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CD964;
+      flex-shrink: 0;
+    }
+
+    .pricing-headline {
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .pricing-sub {
+      font-size: 17px;
+      color: var(--stone);
+      line-height: 1.7;
+      margin-bottom: 56px;
+      max-width: 520px;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--silver-line);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--black);
+      position: relative;
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -13px;
+      left: 40px;
+      background: var(--black);
+      color: var(--platinum);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    .pricing-tier {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 24px;
+    }
+
+    .pricing-founding {
+      margin-bottom: 6px;
+    }
+
+    .pricing-founding-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 6px;
+    }
+
+    .pricing-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .pricing-currency {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .pricing-number {
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .pricing-period {
+      font-size: 15px;
+      color: var(--stone);
+      font-weight: 400;
+    }
+
+    .pricing-standard {
+      font-size: 13px;
+      color: var(--stone);
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--silver-line);
+    }
+
+    .pricing-standard span {
+      text-decoration: line-through;
+      color: var(--platinum-deep);
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--stone);
+      line-height: 1.5;
+    }
+
+    .pricing-features li::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--cloud);
+      border: 1.5px solid var(--silver-line);
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='7' viewBox='0 0 9 7'%3E%3Cpath d='M1 3.5l2.5 2.5L8 1' stroke='%236E6E73' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .pricing-cta {
+      display: block;
+      text-align: center;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 15px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .pricing-cta:hover { background: var(--charcoal); }
+
+    .pricing-cta.light {
+      background: var(--platinum-tint);
+      color: var(--black);
+    }
+
+    .pricing-cta.light:hover { background: #D8D9DB; }
+
+    .pricing-footnotes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .pricing-footnote {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--stone);
+      line-height: 1.6;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .pricing-footnote-icon {
+      font-size: 15px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-section { padding: 64px 24px; }
+      .pricing-cards { grid-template-columns: 1fr; }
+    }
+
     /* ── BUYER EXPERIENCE SCREENS ── */
     .screen-hero {
       border-radius: 10px;
@@ -879,6 +1107,82 @@
     <p class="honest-body">Selectus Motors is a new platform. We don't have ten years of traffic data and we won't claim to. What we have is a commitment to building something the industry actually needs — and the willingness to earn your trust over time, not demand it on day one.</p>
     <p class="honest-body">Listing is free at launch. When we begin charging — which we will — you'll have months of real data on what the platform delivered before you pay a penny. We grow when you grow.</p>
     <p class="honest-body" style="color: var(--black); font-weight: 500;">If that sounds like the kind of platform you've been waiting for, list your cars today.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+
+    <div class="pricing-trigger">
+      <span class="pricing-trigger-dot"></span>
+      You don't pay until a buyer contacts you
+    </div>
+
+    <h2 class="pricing-headline">Straightforward pricing.<br>No surprises.</h2>
+    <p class="pricing-sub">List free. The moment a buyer makes contact through your listing, billing begins. If it doesn't work for you, you pay nothing.</p>
+
+    <div class="pricing-cards">
+
+      <!-- SOLO -->
+      <div class="pricing-card">
+        <p class="pricing-tier">Solo</p>
+        <p class="pricing-founding-label">Founding rate — first 50 dealers</p>
+        <div class="pricing-amount">
+          <span class="pricing-currency">£</span>
+          <span class="pricing-number">55</span>
+          <span class="pricing-period">/mo</span>
+        </div>
+        <p class="pricing-standard">Standard rate <span>£79/mo</span> after founding places are filled</p>
+        <ul class="pricing-features">
+          <li>Up to 20 active listings</li>
+          <li>Every enquiry goes direct to you</li>
+          <li>Companies House verified badge</li>
+          <li>Listing performance dashboard</li>
+          <li>Pay annually — 2 months free</li>
+        </ul>
+        <a href="/dealers/register" class="pricing-cta light">Register as founding dealer →</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card featured">
+        <span class="pricing-badge">Most popular</span>
+        <p class="pricing-tier">Pro</p>
+        <p class="pricing-founding-label">Founding rate — first 50 dealers</p>
+        <div class="pricing-amount">
+          <span class="pricing-currency">£</span>
+          <span class="pricing-number">132</span>
+          <span class="pricing-period">/mo</span>
+        </div>
+        <p class="pricing-standard">Standard rate <span>£189/mo</span> after founding places are filled</p>
+        <ul class="pricing-features">
+          <li>Unlimited active listings</li>
+          <li>Every enquiry goes direct to you</li>
+          <li>Companies House verified badge</li>
+          <li>Listing performance dashboard</li>
+          <li>Spotlight showcase — pin 3 vehicles to your profile</li>
+          <li>Pay annually — 2 months free</li>
+        </ul>
+        <a href="/dealers/register" class="pricing-cta">Register as founding dealer →</a>
+      </div>
+
+    </div>
+
+    <div class="pricing-footnotes">
+      <div class="pricing-footnote">
+        <span class="pricing-footnote-icon">🔒</span>
+        <span>Founding rate is locked for life. The first 50 dealers on the platform keep their rate regardless of future pricing changes.</span>
+      </div>
+      <div class="pricing-footnote">
+        <span class="pricing-footnote-icon">📅</span>
+        <span>Annual billing saves 2 months. Pay for 10, list for 12. Switch anytime before renewal.</span>
+      </div>
+      <div class="pricing-footnote">
+        <span class="pricing-footnote-icon">⚡</span>
+        <span>No payment details required to register. Billing only begins when your first buyer enquiry arrives.</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
