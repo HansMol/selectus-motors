@@ -28,7 +28,7 @@ const step3Schema = z.object({
   makes:         z.array(z.string()).min(1, 'Please select at least one make'),
   inventorySize: z.string().min(1, 'Please select your typical inventory size'),
   priceRange:    z.string().min(1, 'Please select your average price range'),
-  termsAccepted: z.literal(true, { errorMap: () => ({ message: 'You must accept the terms to register' }) }),
+  termsAccepted: z.literal(true, { error: () => ({ message: 'You must accept the terms to register' }) }),
 })
 
 type Step1Data = z.infer<typeof step1Schema>
