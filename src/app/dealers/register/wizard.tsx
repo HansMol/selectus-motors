@@ -28,6 +28,7 @@ const step3Schema = z.object({
   makes:         z.array(z.string()).min(1, 'Please select at least one make'),
   inventorySize: z.string().min(1, 'Please select your typical inventory size'),
   priceRange:    z.string().min(1, 'Please select your average price range'),
+  termsAccepted: z.literal(true, { errorMap: () => ({ message: 'You must accept the terms to register' }) }),
 })
 
 type Step1Data = z.infer<typeof step1Schema>
@@ -449,6 +450,7 @@ export function DealerWizard() {
       makes:         data.makes         ?? [],
       inventorySize: data.inventorySize ?? '',
       priceRange:    data.priceRange    ?? '',
+      termsAccepted: false as unknown as true,
     },
   })
 
@@ -715,6 +717,39 @@ export function DealerWizard() {
                 ))}
               </div>
             </Field>
+
+            <div className="border border-[#2A2A2E] rounded-lg p-4 flex flex-col gap-3">
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#6E6E73]">Founding commitments — binding at signup</p>
+              <ul className="flex flex-col gap-1.5">
+                {[
+                  'Lead Ownership — every enquiry goes directly to you. We never intercept or monetise your leads.',
+                  'Search Integrity — organic results are ordered by relevance and recency only. No dealer can pay to rank above another.',
+                  'Exit With Your Data — your data belongs to you. Full export available at any time. Leaving costs nothing.',
+                ].map((line, i) => (
+                  <li key={i} className="flex items-start gap-2 text-[13px] text-[#6E6E73]">
+                    <span className="text-[#C4C6CC] mt-0.5 flex-shrink-0">—</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <label className="flex items-start gap-3 cursor-pointer mt-1">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 flex-shrink-0 accent-[#C4C6CC]"
+                  {...form3.register('termsAccepted')}
+                />
+                <span className="text-[13px] text-[#6E6E73]">
+                  I agree to the{' '}
+                  <a href="/terms.html" target="_blank" rel="noopener noreferrer" className="text-[#C4C6CC] underline underline-offset-2">
+                    Selectus Motors Terms of Service
+                  </a>
+                  , including the three founding commitments above.
+                </span>
+              </label>
+              {form3.formState.errors.termsAccepted && (
+                <p className="text-[12px] text-red-400">{form3.formState.errors.termsAccepted.message}</p>
+              )}
+            </div>
 
             {submitError && (
               <p className="text-[13px] text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-3">
