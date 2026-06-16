@@ -580,6 +580,11 @@ export default function NewListingPage() {
     setPhotos(prev => prev.filter((_, i) => i !== index))
   }
 
+  function handleFiles(files: FileList | File[], startSlot: number) {
+    const arr = Array.from(files).slice(0, 20 - startSlot)
+    arr.forEach((file, i) => uploadPhoto(file, startSlot + i))
+  }
+
   async function onSubmit(data: ListingFormData) {
     setSaving(true)
     setSaveError(null)
@@ -844,28 +849,27 @@ export default function NewListingPage() {
                 onDrop={e => {
                   e.preventDefault()
                   setCoverDragOver(false)
-                  const file = e.dataTransfer.files[0]
-                  if (file) uploadPhoto(file, 0)
+                  if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files, 0)
                 }}
               >
                 <input
                   type="file"
+                  multiple
                   accept="image/jpeg,image/png,image/webp"
                   className="sr-only"
                   onChange={e => {
-                    const file = e.target.files?.[0]
-                    if (file) uploadPhoto(file, 0)
+                    if (e.target.files?.length) handleFiles(e.target.files, 0)
                     e.target.value = ''
                   }}
                 />
-                {uploadingSlots.has(0) ? (
+                {uploadingSlots.size > 0 && !photos[0] ? (
                   <Loader2 size={22} className="text-[#C4C6CC] animate-spin" />
                 ) : (
                   <>
                     <ImageIcon size={22} className="text-[#C4C6CC]" />
                     <div className="text-center">
                       <p className="text-[13px] font-medium text-[#0A0A0F]">Cover photo</p>
-                      <p className="text-[11px] text-[#6E6E73]">Click or drag &amp; drop</p>
+                      <p className="text-[11px] text-[#6E6E73]">Click or drag &amp; drop · select multiple</p>
                     </div>
                   </>
                 )}
@@ -874,7 +878,7 @@ export default function NewListingPage() {
 
             {/* Additional photo grid */}
             {photos.length > 0 && (
-              <div className="grid grid-cols-5 gap-2 mb-2">
+              <div className="grid grid-cols-5 gap-2 mb-3">
                 {Array.from({ length: Math.min(19, photos.length) }).map((_, i) => {
                   const slotIndex = i + 1
                   const url = photos[slotIndex]
@@ -913,30 +917,30 @@ export default function NewListingPage() {
                     </label>
                   )
                 })}
-                {/* Next empty slot (if under 20) */}
-                {photos.filter(Boolean).length < 20 && photos.length < 20 && (() => {
-                  const slotIndex = photos.filter(Boolean).length
-                  if (slotIndex === 0) return null
-                  return (
-                    <label
-                      key="next"
-                      className="aspect-square border border-dashed border-[#E5E5E7] rounded-lg flex items-center justify-center cursor-pointer hover:border-[#C4C6CC] transition-colors"
-                    >
-                      <input
-                        type="file"
-                        accept="image/jpeg,image/png,image/webp"
-                        className="sr-only"
-                        onChange={e => {
-                          const file = e.target.files?.[0]
-                          if (file) uploadPhoto(file, slotIndex)
-                          e.target.value = ''
-                        }}
-                      />
-                      <Plus size={14} className="text-[#C4C6CC]" />
-                    </label>
-                  )
-                })()}
               </div>
+            )}
+
+            {/* Bulk add more */}
+            {photos.length > 0 && photos.filter(Boolean).length < 20 && (
+              <label className="flex items-center gap-2 cursor-pointer w-fit">
+                <input
+                  type="file"
+                  multiple
+                  accept="image/jpeg,image/png,image/webp"
+                  className="sr-only"
+                  onChange={e => {
+                    if (e.target.files?.length) handleFiles(e.target.files, photos.filter(Boolean).length)
+                    e.target.value = ''
+                  }}
+                />
+                <Plus size={13} className="text-[#6E6E73]" />
+                <span className="text-[12px] font-medium text-[#6E6E73] hover:text-[#0A0A0F] transition-colors">
+                  Add more photos
+                </span>
+                <span className="text-[11px] text-[#A8AAB0]">
+                  {photos.filter(Boolean).length}/20
+                </span>
+              </label>
             )}
           </div>
 
