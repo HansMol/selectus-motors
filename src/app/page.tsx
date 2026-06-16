@@ -3,6 +3,8 @@ import { ShieldCheck, Star } from 'lucide-react'
 import { ListingCard } from '@/components/listings/listing-card'
 import { createServerClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 const makes = ['BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Ford', 'Toyota', 'Porsche', 'Mazda', 'Land Rover', 'Volvo']
 const bodyTypes = [
   { label: 'Hatchbacks', value: 'hatchback' },
