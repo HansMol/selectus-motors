@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { createServerClient } from '@/lib/supabase/server'
 import type { DealerRow, ListingRow } from '@/lib/supabase/types'
+import EnquiryForm from './enquiry-form'
 
 type ListingWithDealer = ListingRow & { dealers: DealerRow | null }
 
@@ -131,34 +132,11 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
           {/* Enquiry card */}
           <div className="bg-white border border-[#E5E5E7] rounded-md p-5 sticky top-24">
             <h3 className="font-semibold text-[#0A0A0F] mb-4">Enquire with dealer</h3>
-            <form className="space-y-3">
-              <input
-                type="text"
-                placeholder="Your name"
-                className="w-full border border-[#E5E5E7] rounded-md px-3 py-2.5 text-sm text-[#0A0A0F] placeholder:text-[#A8AAB0] focus:outline-none focus:border-[#C4C6CC] transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Email address"
-                className="w-full border border-[#E5E5E7] rounded-md px-3 py-2.5 text-sm text-[#0A0A0F] placeholder:text-[#A8AAB0] focus:outline-none focus:border-[#C4C6CC] transition-colors"
-              />
-              <input
-                type="tel"
-                placeholder="Phone number (optional)"
-                className="w-full border border-[#E5E5E7] rounded-md px-3 py-2.5 text-sm text-[#0A0A0F] placeholder:text-[#A8AAB0] focus:outline-none focus:border-[#C4C6CC] transition-colors"
-              />
-              <textarea
-                rows={4}
-                defaultValue={`Hi, I'm interested in the ${title}. Is it still available?`}
-                className="w-full border border-[#E5E5E7] rounded-md px-3 py-2.5 text-sm text-[#0A0A0F] placeholder:text-[#A8AAB0] focus:outline-none focus:border-[#C4C6CC] transition-colors resize-none"
-              />
-              <button
-                type="submit"
-                className="w-full bg-[#0A0A0F] text-white font-semibold py-3 rounded-md hover:bg-[#1C1C1E] transition-colors text-sm"
-              >
-                Send enquiry
-              </button>
-            </form>
+            <EnquiryForm
+              dealer_id={listing.dealer_id}
+              listing_id={listing.id}
+              listing_title={title}
+            />
             <p className="text-xs text-[#A8AAB0] text-center mt-3">
               Your details go directly to the dealer. Selectus Motors is never in the middle.
             </p>
