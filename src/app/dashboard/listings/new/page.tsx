@@ -11,9 +11,10 @@ import {
   ImageIcon,
   ChevronRight,
   Plus,
-  Info,
   Pencil,
   Sparkles,
+  X,
+  Loader2,
 } from 'lucide-react'
 
 // ── Constants (as const for z.enum compatibility) ────────────────────────────
@@ -528,11 +529,14 @@ function SuccessScreen({ data }: { data: ListingFormData }) {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function NewListingPage() {
-  const [done, setDone]           = useState(false)
-  const [submitted, setSubmitted] = useState<ListingFormData | null>(null)
-  const [saving, setSaving]       = useState(false)
-  const [saveError, setSaveError] = useState<string | null>(null)
-  const submitIntent              = useRef<'draft' | 'live'>('draft')
+  const [done, setDone]                     = useState(false)
+  const [submitted, setSubmitted]           = useState<ListingFormData | null>(null)
+  const [saving, setSaving]                 = useState(false)
+  const [saveError, setSaveError]           = useState<string | null>(null)
+  const [photos, setPhotos]                 = useState<string[]>([])
+  const [uploadingSlots, setUploadingSlots] = useState<Set<number>>(new Set())
+  const [coverDragOver, setCoverDragOver]   = useState(false)
+  const submitIntent                        = useRef<'draft' | 'live'>('draft')
 
   const {
     register,
@@ -553,6 +557,29 @@ export default function NewListingPage() {
   const watchedDoors    = watch('doors')
   const watchedStatus   = watch('status')
 
+  async function uploadPhoto(file: File, slotIndex: number) {
+    setUploadingSlots(prev => new Set([...prev, slotIndex]))
+    try {
+      const res = await fetch('/api/listings/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: file.name, contentType: file.type }),
+      })
+      if (!res.ok) throw new Error('Upload URL failed')
+      const { signedUrl, publicUrl } = await res.json() as { signedUrl: string; publicUrl: string }
+      await fetch(signedUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } })
+      setPhotos(prev => { const next = [...prev]; next[slotIndex] = publicUrl; return next })
+    } catch {
+      setSaveError('Photo upload failed — please try again.')
+    } finally {
+      setUploadingSlots(prev => { const s = new Set(prev); s.delete(slotIndex); return s })
+    }
+  }
+
+  function removePhoto(index: number) {
+    setPhotos(prev => prev.filter((_, i) => i !== index))
+  }
+
   async function onSubmit(data: ListingFormData) {
     setSaving(true)
     setSaveError(null)
@@ -560,7 +587,7 @@ export default function NewListingPage() {
     const res = await fetch('/api/listings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, status }),
+      body: JSON.stringify({ ...data, status, photos }),
     })
     if (res.ok) {
       setSubmitted({ ...data, status })
@@ -790,35 +817,127 @@ export default function NewListingPage() {
               <h2 className="text-[15px] font-semibold text-[#0A0A0F]">Photos</h2>
               <span className="text-[11px] text-[#6E6E73]">Up to 20 · JPEG or PNG · Max 10 MB each</span>
             </div>
-            <p className="text-[13px] text-[#6E6E73] mb-5">The first photo will be used as the listing cover.</p>
+            <p className="text-[13px] text-[#6E6E73] mb-5">The first photo will be the listing cover.</p>
 
             {/* Cover slot */}
-            <div className="border-2 border-dashed border-[#E5E5E7] rounded-xl h-36 flex flex-col items-center justify-center gap-2 opacity-40 cursor-not-allowed mb-3">
-              <ImageIcon size={22} className="text-[#C4C6CC]" />
-              <div className="text-center">
-                <p className="text-[13px] font-medium text-[#0A0A0F]">Cover photo</p>
-                <p className="text-[11px] text-[#6E6E73]">Click or drag &amp; drop to upload</p>
+            {photos[0] ? (
+              <div className="relative rounded-xl overflow-hidden mb-3 aspect-[16/9]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={photos[0]} alt="Cover" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removePhoto(0)}
+                  className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white rounded-full p-1 transition-colors"
+                >
+                  <X size={14} />
+                </button>
               </div>
-            </div>
+            ) : (
+              <label
+                className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl h-36 mb-3 cursor-pointer transition-colors ${
+                  coverDragOver
+                    ? 'border-[#0A0A0F] bg-[#F8F8FA]'
+                    : 'border-[#E5E5E7] hover:border-[#C4C6CC]'
+                }`}
+                onDragOver={e => { e.preventDefault(); setCoverDragOver(true) }}
+                onDragLeave={() => setCoverDragOver(false)}
+                onDrop={e => {
+                  e.preventDefault()
+                  setCoverDragOver(false)
+                  const file = e.dataTransfer.files[0]
+                  if (file) uploadPhoto(file, 0)
+                }}
+              >
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="sr-only"
+                  onChange={e => {
+                    const file = e.target.files?.[0]
+                    if (file) uploadPhoto(file, 0)
+                    e.target.value = ''
+                  }}
+                />
+                {uploadingSlots.has(0) ? (
+                  <Loader2 size={22} className="text-[#C4C6CC] animate-spin" />
+                ) : (
+                  <>
+                    <ImageIcon size={22} className="text-[#C4C6CC]" />
+                    <div className="text-center">
+                      <p className="text-[13px] font-medium text-[#0A0A0F]">Cover photo</p>
+                      <p className="text-[11px] text-[#6E6E73]">Click or drag &amp; drop</p>
+                    </div>
+                  </>
+                )}
+              </label>
+            )}
 
             {/* Additional photo grid */}
-            <div className="grid grid-cols-5 gap-2 mb-4">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="border border-dashed border-[#E5E5E7] rounded-lg aspect-square flex items-center justify-center opacity-30 cursor-not-allowed"
-                >
-                  <Plus size={14} className="text-[#C4C6CC]" />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-start gap-3 bg-[#F8F8FA] border border-[#E5E5E7] rounded-lg px-4 py-3">
-              <Info size={14} className="text-[#C4C6CC] flex-shrink-0 mt-0.5" />
-              <p className="text-[12px] text-[#6E6E73]">
-                Photo upload — including bulk upload of your full stock — will be available once storage is connected in the next update. Save this listing as a draft and add photos when ready.
-              </p>
-            </div>
+            {photos.length > 0 && (
+              <div className="grid grid-cols-5 gap-2 mb-2">
+                {Array.from({ length: Math.min(19, photos.length) }).map((_, i) => {
+                  const slotIndex = i + 1
+                  const url = photos[slotIndex]
+                  const loading = uploadingSlots.has(slotIndex)
+                  return url ? (
+                    <div key={slotIndex} className="relative aspect-square rounded-lg overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={url} alt={`Photo ${slotIndex + 1}`} className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => removePhoto(slotIndex)}
+                        className="absolute top-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded-full p-0.5 transition-colors"
+                      >
+                        <X size={10} />
+                      </button>
+                    </div>
+                  ) : (
+                    <label
+                      key={slotIndex}
+                      className="aspect-square border border-dashed border-[#E5E5E7] rounded-lg flex items-center justify-center cursor-pointer hover:border-[#C4C6CC] transition-colors"
+                    >
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        className="sr-only"
+                        onChange={e => {
+                          const file = e.target.files?.[0]
+                          if (file) uploadPhoto(file, slotIndex)
+                          e.target.value = ''
+                        }}
+                      />
+                      {loading
+                        ? <Loader2 size={14} className="text-[#C4C6CC] animate-spin" />
+                        : <Plus size={14} className="text-[#C4C6CC]" />
+                      }
+                    </label>
+                  )
+                })}
+                {/* Next empty slot (if under 20) */}
+                {photos.filter(Boolean).length < 20 && photos.length < 20 && (() => {
+                  const slotIndex = photos.filter(Boolean).length
+                  if (slotIndex === 0) return null
+                  return (
+                    <label
+                      key="next"
+                      className="aspect-square border border-dashed border-[#E5E5E7] rounded-lg flex items-center justify-center cursor-pointer hover:border-[#C4C6CC] transition-colors"
+                    >
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        className="sr-only"
+                        onChange={e => {
+                          const file = e.target.files?.[0]
+                          if (file) uploadPhoto(file, slotIndex)
+                          e.target.value = ''
+                        }}
+                      />
+                      <Plus size={14} className="text-[#C4C6CC]" />
+                    </label>
+                  )
+                })()}
+              </div>
+            )}
           </div>
 
           {/* ── Error banner ──────────────────────────────────────────── */}
