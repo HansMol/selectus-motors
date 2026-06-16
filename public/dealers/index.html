@@ -761,16 +761,15 @@
 
     .pricing-features li::before {
       content: '';
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      background: var(--cloud);
-      border: 1.5px solid var(--silver-line);
-      flex-shrink: 0;
-      margin-top: 1px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='7' viewBox='0 0 9 7'%3E%3Cpath d='M1 3.5l2.5 2.5L8 1' stroke='%236E6E73' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-color: var(--black);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23ffffff' stroke-width='1.75' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: center;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
 
     .pricing-cta {
@@ -815,9 +814,9 @@
     }
 
     .pricing-footnote-icon {
-      font-size: 15px;
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
+      color: var(--stone);
     }
 
     @media (max-width: 768px) {
@@ -1170,15 +1169,30 @@
 
     <div class="pricing-footnotes">
       <div class="pricing-footnote">
-        <span class="pricing-footnote-icon">🔒</span>
+        <span class="pricing-footnote-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </span>
         <span>Founding rate is locked for life. The first 50 dealers on the platform keep their rate regardless of future pricing changes.</span>
       </div>
       <div class="pricing-footnote">
-        <span class="pricing-footnote-icon">📅</span>
+        <span class="pricing-footnote-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="3.5" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M2 7h12" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M5 2v3M11 2v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </span>
         <span>Annual billing saves 2 months. Pay for 10, list for 12. Switch anytime before renewal.</span>
       </div>
       <div class="pricing-footnote">
-        <span class="pricing-footnote-icon">⚡</span>
+        <span class="pricing-footnote-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 2L4 9h4l-1 5 5-7H8l1-5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
         <span>No payment details required to register. Billing only begins when your first buyer enquiry arrives.</span>
       </div>
     </div>
