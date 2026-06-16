@@ -16,11 +16,18 @@ type DealerRow = {
   price_range: string
   verified_via: string
   status: 'pending' | 'approved' | 'rejected'
+  plan: 'solo' | 'pro' | null
+  stripe_customer_id: string | null
+  stripe_subscription_id: string | null
+  subscription_status: 'free' | 'active' | 'cancelled' | 'past_due'
+  billing_starts_at: string | null
   created_at: string
 }
 
-type DealerInsert = Omit<DealerRow, 'id' | 'created_at'>
-type DealerUpdate = Partial<DealerInsert>
+type DealerInsert =
+  Omit<DealerRow, 'id' | 'created_at' | 'stripe_subscription_id' | 'subscription_status' | 'billing_starts_at'>
+  & Partial<Pick<DealerRow, 'stripe_subscription_id' | 'subscription_status' | 'billing_starts_at'>>
+type DealerUpdate = Partial<Omit<DealerRow, 'id' | 'created_at'>>
 
 type ListingRow = {
   id: string

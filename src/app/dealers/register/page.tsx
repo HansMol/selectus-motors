@@ -5,10 +5,17 @@ export const metadata = {
   description: 'List your inventory on Selectus Motors. Free to list, direct leads, no platform intermediation.',
 }
 
-export default function DealerRegisterPage() {
+export default async function DealerRegisterPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ plan?: string }>
+}) {
+  const { plan } = await searchParams
+  const initialPlan = plan === 'solo' || plan === 'pro' ? plan : undefined
+
   return (
     <div className="min-h-screen bg-[#0A0A0F] pt-12 pb-20">
-      <DealerWizard />
+      <DealerWizard initialPlan={initialPlan} />
     </div>
   )
 }

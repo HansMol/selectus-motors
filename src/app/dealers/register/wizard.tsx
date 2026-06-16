@@ -414,13 +414,14 @@ function SuccessScreen({ data }: { data: WizardData }) {
 }
 
 // ── Wizard ────────────────────────────────────────────────────────────────
-export function DealerWizard() {
+export function DealerWizard({ initialPlan }: { initialPlan?: 'solo' | 'pro' }) {
   const [step, setStep]               = useState(1)
   const [data, setData]               = useState<Partial<WizardData>>({})
   const [submitting, setSubmitting]   = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [done, setDone]               = useState(false)
   const [isSoleTrader, setIsSoleTrader] = useState(false)
+  const [plan, setPlan]               = useState<'solo' | 'pro'>(initialPlan ?? 'solo')
 
   const form1 = useForm<Step1Data>({
     resolver: zodResolver(step1Schema),
@@ -487,7 +488,7 @@ export function DealerWizard() {
       const res = await fetch('/api/dealers/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...final, isSoleTrader, verifiedVia }),
+        body: JSON.stringify({ ...final, isSoleTrader, verifiedVia, plan }),
       })
 
       if (!res.ok) {
@@ -543,6 +544,35 @@ export function DealerWizard() {
         {/* Step 1 — Contact details */}
         {step === 1 && (
           <form onSubmit={onStep1} className="flex flex-col gap-5">
+
+            {/* Plan selector */}
+            <div className="pb-5 border-b border-[#1C1C1E]">
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#6E6E73] mb-2">Your plan</p>
+              <div className="flex gap-2 p-1 bg-[#1C1C1E] rounded-lg">
+                <button
+                  type="button"
+                  onClick={() => setPlan('solo')}
+                  className={`flex-1 py-2 rounded-md text-[12px] font-semibold transition-colors ${
+                    plan === 'solo' ? 'bg-[#C4C6CC] text-[#0A0A0F]' : 'text-[#6E6E73] hover:text-white'
+                  }`}
+                >
+                  Solo — £55/mo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlan('pro')}
+                  className={`flex-1 py-2 rounded-md text-[12px] font-semibold transition-colors ${
+                    plan === 'pro' ? 'bg-[#C4C6CC] text-[#0A0A0F]' : 'text-[#6E6E73] hover:text-white'
+                  }`}
+                >
+                  Pro — £132/mo
+                </button>
+              </div>
+              <p className="text-[11px] text-[#6E6E73] mt-2 px-1">
+                No payment required now. Billing starts the month after your first buyer enquiry.
+              </p>
+            </div>
+
             <div className="grid grid-cols-2 gap-4">
               <Field label="First name" error={form1.formState.errors.firstName?.message}>
                 <TextInput {...form1.register('firstName')} placeholder="John" hasError={!!form1.formState.errors.firstName} />
