@@ -9,7 +9,7 @@ binding = "ASSETS"
 
 [vars]
 NEXT_PUBLIC_BASE_URL = "https://selectusmotors.com"
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_test_51TibFoFVFkk5AvROr1RRr3nz5RgLWZfdZRqsx2d1WL4vwoCadm8UV5nt1UV81mRWZbVo8AAx7EvW0ttyn5hEFD4L005Mz9PxSc"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51TibFXFNgPGWyXchk7laT4uVikfOh7keKP5zCqkHrEeOcLRfSXKDHC6hULxEj2NxXmjCsIokAL7ulTM4FJIOvghB00CLeSaDu6"
 # Analytics — fill in once accounts are set up
 NEXT_PUBLIC_GA_ID = "G-MFCDLJ52QL"
 NEXT_PUBLIC_CLARITY_ID = "x7v8fg28yj"
