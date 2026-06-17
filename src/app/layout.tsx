@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import Script from 'next/script'
 import './globals.css'
 import { Nav } from '@/components/layout/nav'
+import { FooterWrapper } from '@/components/layout/footer-wrapper'
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: '--font-sans',
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_ID}");
           `}</Script>
         )}
-        <footer className="border-t border-[#E5E5E7] bg-white mt-16">
+        <FooterWrapper><footer className="border-t border-[#E5E5E7] bg-white mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="flex flex-col md:flex-row justify-between gap-8">
               <div>
@@ -81,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               © 2026 Selectus Motors Ltd. All rights reserved.
             </div>
           </div>
-        </footer>
+        </footer></FooterWrapper>
       </body>
     </html>
     </ClerkProvider>

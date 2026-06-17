@@ -1,185 +1,178 @@
 import Link from 'next/link'
-import { ShieldCheck, Star } from 'lucide-react'
-import { ListingCard } from '@/components/listings/listing-card'
-import { createServerClient } from '@/lib/supabase/server'
+import { CountdownTimer } from '@/components/countdown-timer'
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static'
 
-const makes = ['BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Ford', 'Toyota', 'Porsche', 'Mazda', 'Land Rover', 'Volvo']
-const bodyTypes = [
-  { label: 'Hatchbacks', value: 'hatchback' },
-  { label: 'SUVs', value: 'suv' },
-  { label: 'Saloons', value: 'saloon' },
-  { label: 'Estates', value: 'estate' },
-  { label: 'Coupes', value: 'coupe' },
-  { label: 'Convertibles', value: 'convertible' },
-]
-
-export default async function HomePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('listings')
-    .select('*')
-    .eq('status', 'live')
-    .order('created_at', { ascending: false })
-    .limit(6)
-  const recentListings = data ?? []
-
+export default function ComingSoonPage() {
   return (
-    <div>
-      {/* Hero */}
-      <section className="bg-[#0A0A0F] text-white px-4 sm:px-8 lg:px-16 pt-16 pb-16 flex flex-col gap-12">
-        <div className="max-w-3xl">
-          <p className="text-[12px] font-semibold tracking-[0.1em] uppercase text-[#C4C6CC] mb-8 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#C4C6CC]">
-            UK Car Marketplace
+    <div className="bg-[#0A0A0F] min-h-screen">
+
+      {/* ── Hero ── */}
+      <section className="px-6 sm:px-10 lg:px-20 pt-20 pb-20 border-b border-[#1C1C1E]">
+        <div className="max-w-5xl">
+          <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#C4C6CC] mb-10 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#C4C6CC]">
+            UK Car Marketplace — Launching August 2026
           </p>
-          <h1 className="text-[clamp(48px,6vw,76px)] font-light leading-[1.06] tracking-[-0.01em] mb-4">
-            Find your next car.
+          <h1 className="text-[clamp(40px,6.5vw,80px)] font-light text-white leading-[1.04] tracking-[-0.025em] mb-6">
+            Find your next car.<br />No games.
           </h1>
-          <p className="text-[clamp(20px,2.5vw,28px)] font-light text-[#C4C6CC] leading-snug tracking-[-0.01em] mb-9">
-            Clean listings. Verified dealers. Direct contact.
-          </p>
-          <p className="text-lg text-[#6E6E73] leading-relaxed mb-12 max-w-lg font-light">
-            No sponsored slots, no reservation fees, no platform inbox. Search, find, call.
+          <p className="text-[clamp(16px,1.8vw,20px)] text-[#6E6E73] font-light leading-relaxed max-w-lg mb-16">
+            Clean listings, verified dealers, direct contact. No sponsored slots, no reservation fees, no platform inbox. Search, find, call.
           </p>
 
-          <form action="/search" method="GET" className="max-w-xl mb-8">
-            <div className="flex gap-2">
-              <input
-                name="q"
-                type="text"
-                placeholder="Make, model, or keyword..."
-                className="flex-1 px-4 py-3.5 bg-[#1C1C1E] border border-[rgba(255,255,255,0.08)] text-white rounded-md text-sm placeholder:text-[#3A3A3E] focus:outline-none focus:border-[#C4C6CC] transition-colors"
-              />
-              <button
-                type="submit"
-                className="bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-7 py-3.5 rounded-md hover:bg-[#A8AAB0] transition-colors text-sm shrink-0"
-              >
-                Search
-              </button>
-            </div>
+          {/* Countdown */}
+          <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-[#2A2A2E] mb-7">
+            Launching in
+          </p>
+          <CountdownTimer targetDate="2026-08-01T00:00:00Z" />
+
+          {/* Buyer email capture */}
+          <form
+            action="https://api.resend.com/audiences"
+            method="POST"
+            className="mt-14 flex flex-col sm:flex-row gap-3 max-w-md"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="flex-1 px-4 py-3.5 bg-[#1C1C1E] border border-[#2A2A2E] text-white rounded-md text-sm placeholder:text-[#3A3A3E] focus:outline-none focus:border-[#C4C6CC] transition-colors"
+            />
+            <button
+              type="submit"
+              className="bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-6 py-3.5 rounded-md hover:bg-white transition-colors text-sm shrink-0"
+            >
+              Notify me at launch
+            </button>
           </form>
-
-          <p className="text-[13px] text-[#6E6E73] mb-4 font-light">
-            <Link href="#notify" className="text-[#C4C6CC] hover:text-white underline underline-offset-2 transition-colors">
-              Notify me when new cars land →
-            </Link>
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {makes.map(make => (
-              <Link
-                key={make}
-                href={`/search?make=${make.toLowerCase()}`}
-                className="text-xs text-[#6E6E73] hover:text-white border border-[#1C1C1E] hover:border-[#C4C6CC] rounded-md px-3 py-1.5 transition-colors"
-              >
-                {make}
-              </Link>
-            ))}
-          </div>
+          <p className="text-[#2A2A2E] text-[11px] mt-3">No spam. One email when we go live.</p>
         </div>
+      </section>
 
-        {/* Hero stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-[#1C1C1E] pt-12">
+      {/* ── Why it's different ── */}
+      <section className="px-6 sm:px-10 lg:px-20 py-16 border-b border-[#1C1C1E]">
+        <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-[#2A2A2E] mb-12">
+          What's different
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 max-w-3xl">
           {[
-            { label: 'Verified dealers', value: '100%' },
-            { label: 'To enquire', value: '£0' },
-            { label: 'Reservation fees', value: 'None' },
-            { label: 'Direct contact', value: 'Always' },
-          ].map((stat, i) => (
-            <div key={i} className="pr-8 border-r border-[#1C1C1E] mr-8 last:border-r-0 last:mr-0 mb-8 md:mb-0">
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#6E6E73] mb-2">{stat.label}</p>
-              <p className="text-[32px] font-light text-white tracking-[-0.02em] leading-none">{stat.value}</p>
+            { stat: '£0',    label: 'To enquire',       sub: 'No reservation fees. No lead charges. Ever.' },
+            { stat: '100%',  label: 'Verified dealers', sub: 'Every dealer checked through Companies House before listing.' },
+            { stat: 'Direct', label: 'Contact always',  sub: 'You call the dealer. No platform inbox, no middleman.' },
+          ].map(({ stat, label, sub }) => (
+            <div key={label}>
+              <p className="text-[clamp(32px,4vw,48px)] font-light text-white leading-none tracking-[-0.03em] mb-2">{stat}</p>
+              <p className="text-[#C4C6CC] text-[13px] font-medium mb-1">{label}</p>
+              <p className="text-[#6E6E73] text-[12px] leading-relaxed">{sub}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Trust signals */}
-      <section className="bg-white border-b border-[#E5E5E7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-md bg-[#0A0A0F] flex items-center justify-center shrink-0">
-                <ShieldCheck size={18} className="text-[#C4C6CC]" />
-              </div>
-              <div>
-                <p className="font-semibold text-[#0A0A0F] text-sm">Verified dealers</p>
-                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Every dealer independently verified through Companies House before their first listing goes live.</p>
+      {/* ── Product preview ── */}
+      <section className="px-6 sm:px-10 lg:px-20 py-20 border-b border-[#1C1C1E]">
+        <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-[#2A2A2E] mb-12">
+          Product preview
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          {/* Listing card mockup */}
+          <div className="rounded-xl overflow-hidden border border-[#1C1C1E] bg-[#0D0D12]">
+            <div className="aspect-[16/10] bg-[#141418] flex items-end p-3">
+              <div className="flex gap-1.5">
+                <div className="w-14 h-1 rounded-full bg-[#C4C6CC]" />
+                <div className="w-6 h-1 rounded-full bg-[#2A2A2E]" />
+                <div className="w-6 h-1 rounded-full bg-[#2A2A2E]" />
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-md bg-[#0A0A0F] flex items-center justify-center shrink-0">
-                <Star size={18} className="text-[#C4C6CC]" />
+            <div className="p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-white text-[13px] font-medium leading-tight mb-1">BMW 3 Series</p>
+                  <p className="text-[#6E6E73] text-[11px]">2021 · 28,000 mi · Diesel</p>
+                </div>
+                <p className="text-white text-[15px] font-light tracking-tight">£24,500</p>
               </div>
-              <div>
-                <p className="font-semibold text-[#0A0A0F] text-sm">Real reviews</p>
-                <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">Verified buyer reviews on every dealer. No incentivised five-stars.</p>
+              <div className="pt-3 border-t border-[#1C1C1E] flex items-center gap-2.5">
+                <div className="w-5 h-5 rounded-full bg-[#1C1C1E] flex-shrink-0" />
+                <p className="text-[#3A3A3E] text-[11px]">Verified dealer · Manchester</p>
               </div>
             </div>
           </div>
+
+          {/* Search results mockup */}
+          <div className="rounded-xl overflow-hidden border border-[#E5E5E7] bg-[#F8F8FA]">
+            <div className="bg-white border-b border-[#E5E5E7] px-4 py-3 flex items-center gap-2">
+              <div className="flex-1 bg-[#F8F8FA] rounded-md px-3 py-2 text-[11px] text-[#A8AAB0]">
+                BMW · Under £30k · Diesel
+              </div>
+              <div className="w-7 h-7 rounded-md bg-[#F8F8FA] border border-[#E5E5E7]" />
+            </div>
+            <div className="p-3 flex flex-col gap-2">
+              {[
+                { make: 'BMW 330d', year: '2021', price: '£24,500' },
+                { make: 'BMW 320i', year: '2022', price: '£22,995' },
+                { make: 'BMW 318d', year: '2020', price: '£19,750' },
+              ].map((car, i) => (
+                <div key={i} className="bg-white rounded-lg p-3 border border-[#E5E5E7] flex gap-3 items-center">
+                  <div className="w-14 h-10 bg-[#F8F8FA] rounded-md flex-shrink-0 border border-[#E5E5E7]" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[#0A0A0F] text-[12px] font-medium leading-tight">{car.make}</p>
+                    <p className="text-[#A8AAB0] text-[10px] mt-0.5">{car.year}</p>
+                  </div>
+                  <p className="text-[#0A0A0F] text-[12px] font-medium flex-shrink-0">{car.price}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Car detail mockup */}
+          <div className="rounded-xl overflow-hidden border border-[#E5E5E7] bg-white">
+            <div className="aspect-video bg-[#F8F8FA] border-b border-[#E5E5E7] flex items-center justify-center">
+              <p className="text-[11px] tracking-[0.1em] uppercase text-[#C4C6CC]">Gallery</p>
+            </div>
+            <div className="p-4">
+              <p className="text-[#0A0A0F] text-[13px] font-medium mb-0.5">BMW 330d M Sport</p>
+              <p className="text-[#6E6E73] text-[11px] mb-3">2021 · Auto · 28,000 mi · RWD</p>
+              <p className="text-[#0A0A0F] text-[22px] font-light tracking-tight mb-4">£24,500</p>
+              <div className="bg-[#0A0A0F] text-white text-[12px] font-semibold py-3 rounded-md text-center mb-2">
+                Contact dealer directly →
+              </div>
+              <p className="text-[10px] text-[#A8AAB0] text-center">No fees. No inbox. Direct call.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Browse by body type */}
-      <section className="bg-[#F8F8FA] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#A8AAB0] mb-3 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#A8AAB0]">
-            Browse
-          </p>
-          <h2 className="text-2xl font-light text-[#0A0A0F] tracking-tight mb-8">Shop by type</h2>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-            {bodyTypes.map(bt => (
-              <Link
-                key={bt.value}
-                href={`/search?bodyType=${bt.value}`}
-                className="flex flex-col items-center gap-2 bg-white border border-[#E5E5E7] rounded-md p-4 hover:border-[#C4C6CC] hover:shadow-sm transition-all text-center"
-              >
-                <span className="text-sm font-medium text-[#0A0A0F]">{bt.label}</span>
-              </Link>
-            ))}
+      {/* ── Dealer secondary CTA ── */}
+      <section className="px-6 sm:px-10 lg:px-20 py-16 border-b border-[#1C1C1E]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 max-w-4xl">
+          <div>
+            <p className="text-white text-[15px] font-medium mb-1">Are you a dealer?</p>
+            <p className="text-[#6E6E73] text-[13px] font-light">Join as a founding dealer — 90 days free, £55/month locked for life.</p>
           </div>
-        </div>
-      </section>
-
-      {/* Latest listings */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#A8AAB0] mb-2 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#A8AAB0]">
-                Latest
-              </p>
-              <h2 className="text-2xl font-light text-[#0A0A0F] tracking-tight">Just listed</h2>
-            </div>
-            <Link href="/search?sort=newest" className="text-sm font-medium text-[#6E6E73] hover:text-[#0A0A0F] transition-colors">
-              View all →
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {recentListings.map(listing => (
-              <ListingCard key={listing.id} listing={listing} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sell CTA */}
-      <section className="bg-[#0A0A0F] text-white px-4 sm:px-8 lg:px-16 py-20">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[12px] font-semibold tracking-[0.1em] uppercase text-[#C4C6CC] mb-6">Sell with Selectus Motors</p>
-          <h2 className="text-[clamp(32px,4vw,48px)] font-light tracking-tight mb-4">
-            Selling your car?
-          </h2>
-          <p className="text-[#6E6E73] mb-10 max-w-md mx-auto leading-relaxed">We&apos;re onboarding our founding dealer partners now. Verified listings, direct buyer contact, no platform cut.</p>
           <Link
             href="/dealers/register"
-            className="inline-block bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-8 py-3.5 rounded-md hover:bg-[#A8AAB0] transition-colors text-sm"
+            className="shrink-0 text-[13px] font-semibold text-[#C4C6CC] border border-[#2A2A2E] hover:border-[#C4C6CC] hover:text-white px-6 py-3 rounded-md transition-colors whitespace-nowrap"
           >
             Apply for early access →
           </Link>
         </div>
       </section>
+
+      {/* ── Footer ── */}
+      <footer className="px-6 sm:px-10 lg:px-20 py-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <span className="text-[#2A2A2E] text-[12px]">© 2026 Selectus Motors</span>
+          <div className="flex gap-6">
+            <Link href="/privacy" className="text-[#2A2A2E] text-[12px] hover:text-[#6E6E73] transition-colors">Privacy</Link>
+            <Link href="/terms"   className="text-[#2A2A2E] text-[12px] hover:text-[#6E6E73] transition-colors">Terms</Link>
+          </div>
+        </div>
+      </footer>
+
     </div>
   )
 }
