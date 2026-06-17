@@ -13,10 +13,10 @@ export default function ComingSoonPage() {
           <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#C4C6CC] mb-10 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#C4C6CC]">
             UK Car Marketplace — Launching August 2026
           </p>
-          <h1 className="text-[clamp(40px,6.5vw,80px)] font-light text-white leading-[1.04] tracking-[-0.025em] mb-6">
+          <h1 className="text-[clamp(32px,3.5vw,48px)] font-light text-white leading-[1.1] tracking-[-0.02em] mb-6">
             Find your next car.<br />No games.
           </h1>
-          <p className="text-[clamp(16px,1.8vw,20px)] text-[#6E6E73] font-light leading-relaxed max-w-lg mb-16">
+          <p className="text-[15px] text-[#6E6E73] font-light leading-relaxed max-w-lg mb-16">
             Clean listings, verified dealers, direct contact. No sponsored slots, no reservation fees, no platform inbox. Search, find, call.
           </p>
 
