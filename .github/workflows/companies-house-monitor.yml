@@ -1,0 +1,25 @@
+name: Companies House Monthly Monitor
+
+on:
+  schedule:
+    # 08:00 UTC on the 1st of every month
+    - cron: '0 8 1 * *'
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Companies House status check
+        run: |
+          response=$(curl -s -w "\n%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            https://selectusmotors.com/api/cron/companies-house)
+          body=$(echo "$response" | head -n -1)
+          status=$(echo "$response" | tail -n 1)
+          echo "HTTP $status"
+          echo "$body"
+          if [ "$status" != "200" ]; then
+            echo "::error::Companies House monitor returned HTTP $status"
+            exit 1
+          fi
