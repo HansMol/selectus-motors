@@ -14,7 +14,7 @@ export default function ComingSoonPage() {
             UK Car Marketplace — Launching August 2026
           </p>
           <h1 className="text-[clamp(32px,3.5vw,48px)] font-light text-white leading-[1.1] tracking-[-0.02em] mb-6">
-            Find your next car.<br />No games.
+            Every car.<br />You choose.
           </h1>
           <p className="text-[15px] text-[#6E6E73] font-light leading-relaxed max-w-lg mb-16">
             Clean listings, verified dealers, direct contact. No sponsored slots, no reservation fees, no platform inbox. Search, find, call.
