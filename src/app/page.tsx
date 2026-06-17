@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CountdownTimer } from '@/components/countdown-timer'
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic'
 
 export default function ComingSoonPage() {
   return (
@@ -29,10 +29,9 @@ export default function ComingSoonPage() {
 
           {/* Buyer email capture */}
           <form
-            action="https://api.resend.com/audiences"
+            action="/api/notify"
             method="POST"
             className="mt-14 flex flex-col sm:flex-row gap-3 max-w-md"
-            onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="email"
