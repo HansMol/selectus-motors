@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { CountdownTimer } from '@/components/countdown-timer'
 
@@ -75,71 +76,39 @@ export default function ComingSoonPage() {
           Product preview
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="flex flex-col gap-5">
 
-          {/* Listing card mockup */}
-          <div className="rounded-xl overflow-hidden border border-[#1C1C1E] bg-[#0D0D12]">
-            <div className="aspect-[16/10] bg-[#141418] flex items-end p-3">
-              <div className="flex gap-1.5">
-                <div className="w-14 h-1 rounded-full bg-[#C4C6CC]" />
-                <div className="w-6 h-1 rounded-full bg-[#2A2A2E]" />
-                <div className="w-6 h-1 rounded-full bg-[#2A2A2E]" />
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <p className="text-white text-[13px] font-medium leading-tight mb-1">BMW 3 Series</p>
-                  <p className="text-[#6E6E73] text-[11px]">2021 · 28,000 mi · Diesel</p>
-                </div>
-                <p className="text-white text-[15px] font-light tracking-tight">£24,500</p>
-              </div>
-              <div className="pt-3 border-t border-[#1C1C1E] flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-[#1C1C1E] flex-shrink-0" />
-                <p className="text-[#3A3A3E] text-[11px]">Verified dealer · Manchester</p>
-              </div>
-            </div>
+          {/* Hero screenshot — full width */}
+          <div className="rounded-xl overflow-hidden border border-[#1C1C1E] w-full">
+            <Image
+              src="/screenshots/hero.png"
+              alt="Selectus Motors — consumer homepage"
+              width={1920}
+              height={1080}
+              className="w-full h-auto"
+              priority
+            />
           </div>
 
-          {/* Search results mockup */}
-          <div className="rounded-xl overflow-hidden border border-[#E5E5E7] bg-[#F8F8FA]">
-            <div className="bg-white border-b border-[#E5E5E7] px-4 py-3 flex items-center gap-2">
-              <div className="flex-1 bg-[#F8F8FA] rounded-md px-3 py-2 text-[11px] text-[#A8AAB0]">
-                BMW · Under £30k · Diesel
-              </div>
-              <div className="w-7 h-7 rounded-md bg-[#F8F8FA] border border-[#E5E5E7]" />
+          {/* Listings + Detail — side by side */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="rounded-xl overflow-hidden border border-[#1C1C1E]">
+              <Image
+                src="/screenshots/listings.png"
+                alt="Selectus Motors — search results"
+                width={1920}
+                height={1080}
+                className="w-full h-auto"
+              />
             </div>
-            <div className="p-3 flex flex-col gap-2">
-              {[
-                { make: 'BMW 330d', year: '2021', price: '£24,500' },
-                { make: 'BMW 320i', year: '2022', price: '£22,995' },
-                { make: 'BMW 318d', year: '2020', price: '£19,750' },
-              ].map((car, i) => (
-                <div key={i} className="bg-white rounded-lg p-3 border border-[#E5E5E7] flex gap-3 items-center">
-                  <div className="w-14 h-10 bg-[#F8F8FA] rounded-md flex-shrink-0 border border-[#E5E5E7]" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[#0A0A0F] text-[12px] font-medium leading-tight">{car.make}</p>
-                    <p className="text-[#A8AAB0] text-[10px] mt-0.5">{car.year}</p>
-                  </div>
-                  <p className="text-[#0A0A0F] text-[12px] font-medium flex-shrink-0">{car.price}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Car detail mockup */}
-          <div className="rounded-xl overflow-hidden border border-[#E5E5E7] bg-white">
-            <div className="aspect-video bg-[#F8F8FA] border-b border-[#E5E5E7] flex items-center justify-center">
-              <p className="text-[11px] tracking-[0.1em] uppercase text-[#C4C6CC]">Gallery</p>
-            </div>
-            <div className="p-4">
-              <p className="text-[#0A0A0F] text-[13px] font-medium mb-0.5">BMW 330d M Sport</p>
-              <p className="text-[#6E6E73] text-[11px] mb-3">2021 · Auto · 28,000 mi · RWD</p>
-              <p className="text-[#0A0A0F] text-[22px] font-light tracking-tight mb-4">£24,500</p>
-              <div className="bg-[#0A0A0F] text-white text-[12px] font-semibold py-3 rounded-md text-center mb-2">
-                Contact dealer directly →
-              </div>
-              <p className="text-[10px] text-[#A8AAB0] text-center">No fees. No inbox. Direct call.</p>
+            <div className="rounded-xl overflow-hidden border border-[#1C1C1E]">
+              <Image
+                src="/screenshots/detail.png"
+                alt="Selectus Motors — car detail and enquiry"
+                width={1920}
+                height={1080}
+                className="w-full h-auto"
+              />
             </div>
           </div>
 
