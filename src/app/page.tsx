@@ -4,7 +4,12 @@ import { CountdownTimer } from '@/components/countdown-timer'
 
 export const dynamic = 'force-dynamic'
 
-export default function ComingSoonPage() {
+export default async function ComingSoonPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ notify?: string }>
+}) {
+  const { notify } = await searchParams
   return (
     <div className="bg-[#0A0A0F] min-h-screen">
 
@@ -28,24 +33,38 @@ export default function ComingSoonPage() {
           <CountdownTimer targetDate="2026-08-01T00:00:00Z" />
 
           {/* Buyer email capture */}
-          <form
-            action="/api/notify"
-            method="POST"
-            className="mt-14 flex flex-col sm:flex-row gap-3 max-w-md"
-          >
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 px-4 py-3.5 bg-[#1C1C1E] border border-[#2A2A2E] text-white rounded-md text-sm placeholder:text-[#3A3A3E] focus:outline-none focus:border-[#C4C6CC] transition-colors"
-            />
-            <button
-              type="submit"
-              className="bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-6 py-3.5 rounded-md hover:bg-white transition-colors text-sm shrink-0"
-            >
-              Notify me at launch
-            </button>
-          </form>
-          <p className="text-[#2A2A2E] text-[11px] mt-3">No spam. One email when we go live.</p>
+          {notify === 'ok' ? (
+            <div className="mt-14 max-w-md">
+              <p className="text-[#C4C6CC] text-[14px]">You&apos;re on the list. We&apos;ll email you when we go live.</p>
+            </div>
+          ) : (
+            <>
+              <form
+                action="/api/notify"
+                method="POST"
+                className="mt-14 flex flex-col sm:flex-row gap-3 max-w-md"
+              >
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your email address"
+                  className="flex-1 px-4 py-3.5 bg-[#1C1C1E] border border-[#2A2A2E] text-white rounded-md text-sm placeholder:text-[#3A3A3E] focus:outline-none focus:border-[#C4C6CC] transition-colors"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-6 py-3.5 rounded-md hover:bg-white transition-colors text-sm shrink-0"
+                >
+                  Notify me at launch
+                </button>
+              </form>
+              {notify === 'invalid' && (
+                <p className="text-red-400 text-[11px] mt-3">Please enter a valid email address.</p>
+              )}
+              {notify !== 'invalid' && (
+                <p className="text-[#2A2A2E] text-[11px] mt-3">No spam. One email when we go live.</p>
+              )}
+            </>
+          )}
         </div>
       </section>
 
