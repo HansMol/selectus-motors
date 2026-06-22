@@ -133,12 +133,39 @@ export default async function ComingSoonPage({
         </div>
       </section>
 
+      {/* ── Social amplification ── */}
+      <section className="px-6 sm:px-10 lg:px-20 py-20 border-b border-[#1C1C1E]">
+        <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-[#2A2A2E] mb-12">
+          For dealers
+        </p>
+        <div className="max-w-4xl">
+          <h2 className="text-[clamp(24px,2.8vw,36px)] font-light text-white leading-[1.15] tracking-[-0.02em] mb-4">
+            Your cars, on our feed.
+          </h2>
+          <p className="text-[15px] text-[#6E6E73] font-light leading-relaxed max-w-lg mb-14">
+            Selectus curates a selection of listed cars into editorial Instagram content. Exceptional cars get featured — no extra charge, no ad budget required.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+            {[
+              { label: 'Editorial, not ads',         sub: 'We select on quality — condition, specification, and story. Not who pays most.' },
+              { label: 'Reach beyond search',         sub: 'Social surfaces your cars to buyers who aren\'t actively searching yet.' },
+              { label: 'Included in your listing',    sub: 'No separate fees. If your car qualifies, it gets featured.' },
+            ].map(({ label, sub }) => (
+              <div key={label}>
+                <p className="text-[#C4C6CC] text-[13px] font-medium mb-2">{label}</p>
+                <p className="text-[#6E6E73] text-[12px] leading-relaxed">{sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Dealer secondary CTA ── */}
       <section className="px-6 sm:px-10 lg:px-20 py-16 border-b border-[#1C1C1E]">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 max-w-4xl">
           <div>
             <p className="text-white text-[15px] font-medium mb-1">Are you a dealer?</p>
-            <p className="text-[#6E6E73] text-[13px] font-light">Join as a founding dealer — 90 days free, £55/month locked for life.</p>
+            <p className="text-[#6E6E73] text-[13px] font-light">You don&apos;t pay a penny until we send you a buyer. Then £55/month.</p>
           </div>
           <Link
             href="/dealers/register"
