@@ -21,6 +21,7 @@ type DealerRow = {
   stripe_subscription_id: string | null
   subscription_status: 'free' | 'active' | 'cancelled' | 'past_due'
   billing_starts_at: string | null
+  first_lead_received_at: string | null
   created_at: string
 }
 

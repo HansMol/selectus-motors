@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
   const supabase = createServerClient()
   const { data: dealer, error } = await supabase
     .from('dealers')
-    .select('email, first_name, last_name, plan, stripe_customer_id, billing_starts_at, subscription_status')
+    .select('email, first_name, last_name, plan, stripe_customer_id, first_lead_received_at, subscription_status')
     .eq('id', dealer_id)
     .single()
 
@@ -85,9 +85,15 @@ export async function POST(req: NextRequest) {
 
   // ── Billing trigger — first enquiry only ──────────────────────────────────
 
-  const isFirstEnquiry = dealer.billing_starts_at === null && dealer.subscription_status === 'free'
+  const isFirstEnquiry = dealer.first_lead_received_at === null
 
   if (isFirstEnquiry) {
+    // Mark immediately to prevent duplicate triggers from concurrent enquiries
+    await supabase
+      .from('dealers')
+      .update({ first_lead_received_at: new Date().toISOString() })
+      .eq('id', dealer_id)
+
     const stripeKey = process.env.STRIPE_SECRET_KEY
     if (stripeKey && stripeKey !== 'sk_test_REPLACE_ME') {
       try {
@@ -127,7 +133,8 @@ export async function POST(req: NextRequest) {
           customer_email: dealer.stripe_customer_id ? undefined : dealer.email,
           line_items: [{ price: priceId, quantity: 1 }],
           subscription_data: {
-            trial_end: startOfNextMonth(),
+            billing_cycle_anchor: startOfNextMonth(),
+            proration_behavior: 'none',
             metadata: { dealer_id, plan, billing_period: 'monthly' },
           },
           metadata: { dealer_id },
