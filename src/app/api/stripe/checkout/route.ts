@@ -55,19 +55,12 @@ export async function POST(req: NextRequest) {
   const supabase = createServerClient()
   const { data: dealer, error } = await supabase
     .from('dealers')
-    .select('plan, stripe_customer_id, email, first_name, last_name, first_lead_received_at')
+    .select('plan, stripe_customer_id, email, first_name, last_name')
     .eq('id', dealerId)
     .single()
 
   if (error || !dealer) {
     return Response.json({ error: 'Dealer not found' }, { status: 404 })
-  }
-
-  if (!dealer.first_lead_received_at) {
-    return Response.json(
-      { error: 'Billing cannot be activated until the dealer has received their first buyer enquiry.' },
-      { status: 403 }
-    )
   }
 
   const plan = (dealer.plan ?? 'solo') as Plan
