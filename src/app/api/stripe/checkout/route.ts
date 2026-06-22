@@ -55,12 +55,19 @@ export async function POST(req: NextRequest) {
   const supabase = createServerClient()
   const { data: dealer, error } = await supabase
     .from('dealers')
-    .select('plan, stripe_customer_id, email, first_name, last_name')
+    .select('plan, stripe_customer_id, email, first_name, last_name, first_lead_received_at')
     .eq('id', dealerId)
     .single()
 
   if (error || !dealer) {
     return Response.json({ error: 'Dealer not found' }, { status: 404 })
+  }
+
+  if (!dealer.first_lead_received_at) {
+    return Response.json(
+      { error: 'Billing cannot be activated until the dealer has received their first buyer enquiry.' },
+      { status: 403 }
+    )
   }
 
   const plan = (dealer.plan ?? 'solo') as Plan
@@ -75,7 +82,8 @@ export async function POST(req: NextRequest) {
     customer_email: dealer.stripe_customer_id ? undefined : dealer.email,
     line_items: [{ price: priceId, quantity: 1 }],
     subscription_data: {
-      trial_end: startOfNextMonth(),
+      billing_cycle_anchor: startOfNextMonth(),
+      proration_behavior: 'none',
       metadata: { dealer_id: dealerId, plan, billing_period: billingPeriod },
     },
     metadata: { dealer_id: dealerId },
