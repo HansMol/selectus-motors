@@ -100,7 +100,7 @@ export default async function ComingSoonPage({
           <div className="rounded-xl overflow-hidden border border-[#1C1C1E] w-full">
             <Image
               src="/screenshots/hero.png"
-              alt="Selectus Motors — consumer homepage"
+              alt="Kerb — consumer homepage"
               width={1920}
               height={1080}
               className="w-full h-auto"
@@ -113,7 +113,7 @@ export default async function ComingSoonPage({
             <div className="rounded-xl overflow-hidden border border-[#1C1C1E]">
               <Image
                 src="/screenshots/listings.png"
-                alt="Selectus Motors — search results"
+                alt="Kerb — search results"
                 width={1920}
                 height={1080}
                 className="w-full h-auto"
@@ -122,7 +122,7 @@ export default async function ComingSoonPage({
             <div className="rounded-xl overflow-hidden border border-[#1C1C1E]">
               <Image
                 src="/screenshots/detail.png"
-                alt="Selectus Motors — car detail and enquiry"
+                alt="Kerb — car detail and enquiry"
                 width={1920}
                 height={1080}
                 className="w-full h-auto"
@@ -143,7 +143,7 @@ export default async function ComingSoonPage({
             Your cars, on our feed.
           </h2>
           <p className="text-[15px] text-[#6E6E73] font-light leading-relaxed max-w-lg mb-14">
-            Selectus curates a selection of listed cars into editorial Instagram content. Exceptional cars get featured — no extra charge, no ad budget required.
+            Kerb curates a selection of listed cars into editorial Instagram content. Exceptional cars get featured — no extra charge, no ad budget required.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
             {[
@@ -179,7 +179,7 @@ export default async function ComingSoonPage({
       {/* ── Footer ── */}
       <footer className="px-6 sm:px-10 lg:px-20 py-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <span className="text-[#2A2A2E] text-[12px]">© 2026 Selectus Motors</span>
+          <span className="text-[#2A2A2E] text-[12px]">© 2026 Kerb</span>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-[#2A2A2E] text-[12px] hover:text-[#6E6E73] transition-colors">Privacy</Link>
             <Link href="/terms"   className="text-[#2A2A2E] text-[12px] hover:text-[#6E6E73] transition-colors">Terms</Link>

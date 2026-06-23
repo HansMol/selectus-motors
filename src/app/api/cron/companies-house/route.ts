@@ -85,8 +85,8 @@ export async function GET(req: NextRequest) {
       `).join('')
 
       await resend.emails.send({
-        from: 'Selectus Motors <notifications@selectusmotors.com>',
-        to: 'hans@selectusmotors.com',
+        from: 'Kerb <notifications@kerb.autos>',
+        to: 'hans@kerb.autos',
         subject: `Companies House alert — ${changed.length} dealer ${changed.length === 1 ? 'status' : 'statuses'} changed`,
         html: `
           <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#0A0A0F">
@@ -105,8 +105,8 @@ export async function GET(req: NextRequest) {
               <tbody>${rows}</tbody>
             </table>
 
-            <p style="font-size:13px;color:#6E6E73">Review affected dealers in the <a href="https://selectusmotors.com/admin" style="color:#0A0A0F">admin dashboard</a> or on <a href="https://find-and-update.company-information.service.gov.uk" style="color:#0A0A0F">Companies House</a>.</p>
-            <p style="font-size:12px;color:#A8AAB0;margin-top:32px">Selectus Motors — automated monthly check · 1st of each month</p>
+            <p style="font-size:13px;color:#6E6E73">Review affected dealers in the <a href="https://kerb.autos/admin" style="color:#0A0A0F">admin dashboard</a> or on <a href="https://find-and-update.company-information.service.gov.uk" style="color:#0A0A0F">Companies House</a>.</p>
+            <p style="font-size:12px;color:#A8AAB0;margin-top:32px">Kerb — automated monthly check · 1st of each month</p>
           </div>
         `,
       })

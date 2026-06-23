@@ -39,7 +39,7 @@ function VerifyCompleteContent() {
             {
               icon: Phone,
               title: 'Need help?',
-              body: 'If your verification fails or you have questions, email hans@selectusmotors.com or call us directly.',
+              body: 'If your verification fails or you have questions, email hans@kerb.autos or call us directly.',
             },
           ].map((item, i) => (
             <div key={i} className="flex gap-4">
@@ -62,7 +62,7 @@ function VerifyCompleteContent() {
           href="/"
           className="text-[13px] text-[#6E6E73] hover:text-white transition-colors"
         >
-          Return to Selectus Motors
+          Return to Kerb
         </Link>
 
       </div>

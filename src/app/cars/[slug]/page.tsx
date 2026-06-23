@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     .eq('id', slug)
     .single()
   if (!data) return { title: 'Car not found' }
-  return { title: `${data.year} ${data.make} ${data.model} — Selectus Motors` }
+  return { title: `${data.year} ${data.make} ${data.model} — Kerb` }
 }
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -138,7 +138,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
               listing_title={title}
             />
             <p className="text-xs text-[#A8AAB0] text-center mt-3">
-              Your details go directly to the dealer. Selectus Motors is never in the middle.
+              Your details go directly to the dealer. Kerb is never in the middle.
             </p>
           </div>
 

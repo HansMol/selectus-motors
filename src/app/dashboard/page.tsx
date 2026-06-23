@@ -190,7 +190,7 @@ export default async function DashboardPage() {
               </div>
               <p className="text-[15px] font-medium text-[#0A0A0F] mb-1">No listings yet</p>
               <p className="text-[13px] text-[#6E6E73] mb-6 max-w-xs">
-                Add your first vehicle to start reaching buyers on Selectus Motors.
+                Add your first vehicle to start reaching buyers on Kerb.
               </p>
               <Link
                 href="/dashboard/listings/new"

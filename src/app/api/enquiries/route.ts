@@ -52,9 +52,9 @@ export async function POST(req: NextRequest) {
   }
 
   const resend = new Resend(resendKey)
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://selectusmotors.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://kerb.autos'
   const listingUrl = `${baseUrl}/cars/${listing_id}`
-  const from = 'Selectus Motors <enquiries@selectusmotors.com>'
+  const from = 'Kerb <enquiries@kerb.autos>'
 
   // ── Send enquiry email to dealer ──────────────────────────────────────────
 
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#0A0A0F">
         <p style="font-size:18px;font-weight:600;margin-bottom:4px">New buyer enquiry</p>
-        <p style="color:#6E6E73;margin-top:0">via Selectus Motors</p>
+        <p style="color:#6E6E73;margin-top:0">via Kerb</p>
 
         <table style="width:100%;border-collapse:collapse;margin:24px 0">
           <tr><td style="padding:8px 0;border-bottom:1px solid #E5E5E7;color:#6E6E73;width:120px">Vehicle</td><td style="padding:8px 0;border-bottom:1px solid #E5E5E7;font-weight:500"><a href="${listingUrl}" style="color:#0A0A0F">${listing_title}</a></td></tr>
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         <p style="color:#6E6E73;font-size:13px;margin-bottom:4px">Message</p>
         <p style="white-space:pre-wrap;background:#F8F8FA;border:1px solid #E5E5E7;border-radius:6px;padding:16px;margin:0">${message}</p>
 
-        <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Reply directly to this email to respond to ${name}.<br>Selectus Motors — <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
+        <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Reply directly to this email to respond to ${name}.<br>Kerb — <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
       </div>
     `,
   })
@@ -100,8 +100,8 @@ export async function POST(req: NextRequest) {
         const stripe = new Stripe(stripeKey)
 
         const PRICE_LOOKUP: Record<string, string> = {
-          solo: 'selectus-solo-monthly',
-          pro:  'selectus-pro-monthly',
+          solo: 'kerb-solo-monthly',
+          pro:  'kerb-pro-monthly',
         }
         const plan = (dealer.plan ?? 'solo') as 'solo' | 'pro'
         const lookupKey = PRICE_LOOKUP[plan]
@@ -111,8 +111,8 @@ export async function POST(req: NextRequest) {
 
         if (!priceId) {
           const PRICE_AMOUNTS: Record<string, { amount: number; name: string }> = {
-            solo: { amount: 5500,  name: 'Selectus Solo' },
-            pro:  { amount: 13200, name: 'Selectus Pro'  },
+            solo: { amount: 5500,  name: 'Kerb Solo' },
+            pro:  { amount: 13200, name: 'Kerb Pro'  },
           }
           const cfg = PRICE_AMOUNTS[plan]
           const product = await stripe.products.create({ name: cfg.name })
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
         })
 
         const checkoutUrl = session.url ?? `${baseUrl}/dashboard`
-        const planLabel = plan === 'pro' ? 'Selectus Pro — £132/month' : 'Selectus Solo — £55/month'
+        const planLabel = plan === 'pro' ? 'Kerb Pro — £132/month' : 'Kerb Solo — £55/month'
         const billingDate = nextMonthLabel()
 
         await resend.emails.send({
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
           html: `
             <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#0A0A0F">
               <p style="font-size:18px;font-weight:600;margin-bottom:4px">Great news, ${dealer.first_name}</p>
-              <p style="color:#6E6E73;margin-top:0">A buyer just enquired about your listing on Selectus Motors.</p>
+              <p style="color:#6E6E73;margin-top:0">A buyer just enquired about your listing on Kerb.</p>
 
               <p>To keep receiving buyer enquiries, set up your subscription now. You won't be charged until <strong>${billingDate}</strong>.</p>
 
@@ -165,7 +165,7 @@ export async function POST(req: NextRequest) {
                 <tr><td style="padding:8px 0;color:#6E6E73">Cancel any time</td><td style="padding:8px 0;font-weight:500">No lock-in</td></tr>
               </table>
 
-              <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Questions? Reply to this email.<br>Selectus Motors — <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
+              <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Questions? Reply to this email.<br>Kerb — <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
             </div>
           `,
         })

@@ -771,7 +771,7 @@ export function DealerWizard({ initialPlan }: { initialPlan?: 'solo' | 'pro' }) 
                 <span className="text-[13px] text-[#6E6E73]">
                   I agree to the{' '}
                   <a href="/dealers/terms.html" target="_blank" rel="noopener noreferrer" className="text-[#C4C6CC] underline underline-offset-2">
-                    Selectus Motors Terms of Service
+                    Kerb Terms of Service
                   </a>
                   , including the three founding commitments above.
                 </span>

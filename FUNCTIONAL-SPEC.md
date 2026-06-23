@@ -1,4 +1,4 @@
-# Selectus Motors — Functional Specification
+# Kerb — Functional Specification
 
 *Last updated: 2026-06-17 (rev 3 — enquiry routing, billing trigger, photo upload wired on new + edit, Companies House monitor)*
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-Selectus Motors is a UK car marketplace. Verified dealers list their vehicles. Buyers search, find, and contact dealers directly. The platform never intermediates between buyer and dealer.
+Kerb is a UK car marketplace. Verified dealers list their vehicles. Buyers search, find, and contact dealers directly. The platform never intermediates between buyer and dealer.
 
 ---
 
@@ -94,7 +94,7 @@ Multi-step wizard:
 - Dealers must be Companies House verified (or manually approved) before listings go live
 - A listing only appears on homepage/search if `status = 'live'`
 - Edit and delete operations are scoped to the authenticated dealer's own listings
-- All buyer enquiries route directly to the dealer's registered email — Selectus is never in the conversation
+- All buyer enquiries route directly to the dealer's registered email — Kerb is never in the conversation
 
 ### Search integrity rule
 Organic search results are ordered by relevance and recency only. No dealer can pay to rank above another. This is a founding charter commitment — never break this rule in code or product decisions.
@@ -107,7 +107,7 @@ Organic search results are ordered by relevance and recency only. No dealer can 
 - GitHub Actions cron: 1st of each month at 08:00 UTC
 - Checks all approved dealers' company status against Companies House
 - Updates `company_status` in Supabase if changed
-- Sends alert email to `hans@selectusmotors.com` via Resend if any status changed
+- Sends alert email to `hans@kerb.autos` via Resend if any status changed
 - Silence = all clear
 
 ---

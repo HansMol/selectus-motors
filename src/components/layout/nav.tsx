@@ -15,7 +15,7 @@ export function Nav() {
         <div className="flex items-center justify-between h-16">
 
           <Link href="/" className="text-[13px] font-semibold tracking-[0.18em] uppercase text-white no-underline">
-            SELECTUS MOTORS
+            KERB
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">

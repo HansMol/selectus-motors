@@ -1,8 +1,8 @@
 import { DealerWizard } from './wizard'
 
 export const metadata = {
-  title: 'Register Your Dealership — Selectus Motors',
-  description: 'List your inventory on Selectus Motors. Free to list, direct leads, no platform intermediation.',
+  title: 'Register Your Dealership — Kerb',
+  description: 'List your inventory on Kerb. Free to list, direct leads, no platform intermediation.',
 }
 
 export default async function DealerRegisterPage({

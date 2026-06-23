@@ -8,10 +8,10 @@ type Plan = 'solo' | 'pro'
 type BillingPeriod = 'monthly' | 'annual'
 
 const PRICES: Record<`${Plan}-${BillingPeriod}`, { unit_amount: number; interval: 'month' | 'year'; lookup_key: string; product_name: string }> = {
-  'solo-monthly': { unit_amount: 5500,   interval: 'month', lookup_key: 'selectus-solo-monthly', product_name: 'Selectus Solo' },
-  'solo-annual':  { unit_amount: 55000,  interval: 'year',  lookup_key: 'selectus-solo-annual',  product_name: 'Selectus Solo' },
-  'pro-monthly':  { unit_amount: 13200,  interval: 'month', lookup_key: 'selectus-pro-monthly',  product_name: 'Selectus Pro'  },
-  'pro-annual':   { unit_amount: 132000, interval: 'year',  lookup_key: 'selectus-pro-annual',   product_name: 'Selectus Pro'  },
+  'solo-monthly': { unit_amount: 5500,   interval: 'month', lookup_key: 'kerb-solo-monthly', product_name: 'Kerb Solo' },
+  'solo-annual':  { unit_amount: 55000,  interval: 'year',  lookup_key: 'kerb-solo-annual',  product_name: 'Kerb Solo' },
+  'pro-monthly':  { unit_amount: 13200,  interval: 'month', lookup_key: 'kerb-pro-monthly',  product_name: 'Kerb Pro'  },
+  'pro-annual':   { unit_amount: 132000, interval: 'year',  lookup_key: 'kerb-pro-annual',   product_name: 'Kerb Pro'  },
 }
 
 // Returns start of next calendar month as a Unix timestamp
