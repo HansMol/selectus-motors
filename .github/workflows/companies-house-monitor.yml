@@ -14,7 +14,7 @@ jobs:
         run: |
           response=$(curl -s -w "\n%{http_code}" \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
-            https://selectusmotors.com/api/cron/companies-house)
+            https://kerb.autos/api/cron/companies-house)
           body=$(echo "$response" | head -n -1)
           status=$(echo "$response" | tail -n 1)
           echo "HTTP $status"

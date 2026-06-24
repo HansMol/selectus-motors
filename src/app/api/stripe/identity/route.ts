@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
   const session = await stripe.identity.verificationSessions.create({
     type: 'document',
-    metadata: { email, name, source: 'selectus-dealer-registration' },
+    metadata: { email, name, source: 'kerb-dealer-registration' },
     options: {
       document: {
         allowed_types: ['driving_license', 'passport', 'id_card'],
