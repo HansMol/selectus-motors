@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'For Dealers — Kerb',
   description: 'The UK car marketplace built for dealers. Every enquiry goes direct to you. No platform inbox, no reservation gates, no intermediation. Free to list.',
