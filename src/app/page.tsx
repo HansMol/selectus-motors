@@ -52,7 +52,7 @@ export default async function ComingSoonPage({
                 />
                 <button
                   type="submit"
-                  className="bg-[#C4C6CC] text-[#0A0A0F] font-semibold px-6 py-3.5 rounded-md hover:bg-white transition-colors text-sm shrink-0"
+                  className="bg-[#A0714A] hover:bg-[#8A6040] text-white font-semibold px-6 py-3.5 rounded-md transition-colors text-sm shrink-0"
                 >
                   Notify me at launch
                 </button>
@@ -169,7 +169,7 @@ export default async function ComingSoonPage({
           </div>
           <Link
             href="/dealers/register"
-            className="shrink-0 text-[13px] font-semibold text-[#C4C6CC] border border-[#2A2A2E] hover:border-[#C4C6CC] hover:text-white px-6 py-3 rounded-md transition-colors whitespace-nowrap"
+            className="shrink-0 text-[13px] font-semibold bg-[#A0714A] hover:bg-[#8A6040] text-white px-6 py-3 rounded-md transition-colors whitespace-nowrap"
           >
             Apply for early access →
           </Link>
