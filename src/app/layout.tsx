@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: { default: 'Kerb — Find Your Next Car', template: '%s | Kerb' },
   description: 'The UK car marketplace built on transparency. Verified dealers, direct contact, no games.',
   keywords: ['used cars', 'buy car', 'sell car', 'car marketplace', 'UK cars', 'Kerb'],
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_SEARCH_CONSOLE_ID,
   },
@@ -57,7 +61,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="flex flex-col md:flex-row justify-between gap-8">
               <div>
-                <span className="text-[13px] font-semibold tracking-[0.18em] uppercase text-[#0A0A0F]">KERB</span>
+                <a href="/" className="flex items-center gap-2.5 no-underline">
+                  <svg width="22" height="22" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="20" width="44" height="14" rx="2" fill="#0A0A0F"/>
+                    <rect x="26" y="42" width="44" height="14" rx="2" fill="#0A0A0F"/>
+                  </svg>
+                  <span className="text-[15px] font-medium tracking-[0.32em] uppercase text-[#0A0A0F]">Kerb</span>
+                </a>
                 <p className="mt-2 text-sm text-[#6E6E73] max-w-xs">The UK car marketplace built on transparency. Verified dealers, direct contact, no games.</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">

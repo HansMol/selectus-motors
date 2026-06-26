@@ -14,8 +14,12 @@ export function Nav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
-          <Link href="/" className="text-[13px] font-semibold tracking-[0.18em] uppercase text-white no-underline">
-            KERB
+          <Link href="/" className="flex items-center gap-3 no-underline group" aria-label="Kerb home">
+            <svg width="28" height="28" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="20" width="44" height="14" rx="2" fill="white"/>
+              <rect x="26" y="42" width="44" height="14" rx="2" fill="white"/>
+            </svg>
+            <span className="text-[18px] font-medium tracking-[0.32em] uppercase text-white">Kerb</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
