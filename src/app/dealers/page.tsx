@@ -16,12 +16,12 @@ const PROBLEMS = [
   {
     label: 'The Algorithm',
     title: 'Your pricing is publicly judged without context',
-    body: 'The "High Price" badge appears on your listing regardless of what you spent on preparation, what warranty you're including, or what the market actually looks like. Your professional judgement, overruled publicly.',
+    body: "The \"High Price\" badge appears on your listing regardless of what you spent on preparation, what warranty you're including, or what the market actually looks like. Your professional judgement, overruled publicly.",
   },
   {
     label: 'Fee Increases',
     title: '8% up in 2025. More to come. Take it or leave it.',
-    body: 'No negotiation. No justification. No alternative — or so you've been told. Kerb was built because that's not acceptable.',
+    body: "No negotiation. No justification. No alternative — or so you've been told. Kerb was built because that's not acceptable.",
   },
   {
     label: 'Account Walls',
@@ -39,12 +39,12 @@ const STANDARDS = [
   {
     num: 'Standard 02',
     title: 'No algorithm judges your pricing.',
-    body: 'We don't badge, grade, or publicly score your listings. You know your stock. You set your price. Buyers see your listing — not a platform's verdict on it.',
+    body: "We don't badge, grade, or publicly score your listings. You know your stock. You set your price. Buyers see your listing — not a platform's verdict on it.",
   },
   {
     num: 'Standard 03',
     title: 'No compulsory tools. No forced flow.',
-    body: 'There is no Deal Builder. There is no reservation system you're opted into by default. You run the deal from first contact to handover. As you always have.',
+    body: "There is no Deal Builder. There is no reservation system you're opted into by default. You run the deal from first contact to handover. As you always have.",
   },
 ]
 
