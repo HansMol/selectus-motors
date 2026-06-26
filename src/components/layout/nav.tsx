@@ -51,7 +51,7 @@ export function Nav() {
                 </SignInButton>
                 <Link
                   href="/dealers/register"
-                  className="text-[13px] font-semibold text-[#C4C6CC] border border-[#1C1C1E] hover:border-[#C4C6CC] hover:text-white px-5 py-2 rounded-md transition-colors"
+                  className="text-[13px] font-semibold bg-[#A0714A] hover:bg-[#8A6040] text-white px-5 py-2 rounded-md transition-colors"
                 >
                   List a car
                 </Link>
@@ -86,7 +86,7 @@ export function Nav() {
                     Sign in
                   </button>
                 </SignInButton>
-                <Link href="/dealers/register" className="flex-1 text-center text-[13px] font-semibold text-[#C4C6CC] border border-[#C4C6CC] rounded-md py-2 hover:text-white hover:border-white transition-colors">List a car</Link>
+                <Link href="/dealers/register" className="flex-1 text-center text-[13px] font-semibold bg-[#A0714A] hover:bg-[#8A6040] text-white rounded-md py-2 transition-colors">List a car</Link>
               </>
             )}
           </div>
