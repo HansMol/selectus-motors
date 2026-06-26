@@ -49,6 +49,8 @@
   /* Brand palette as Tailwind utilities */
   --color-ink: var(--ink);
   --color-cloud: var(--cloud);
+  --color-copper: var(--copper);
+  --color-copper-light: var(--copper-light);
   --color-platinum: var(--platinum);
   --color-platinum-deep: var(--platinum-deep);
   --color-stone: var(--stone);
@@ -60,9 +62,11 @@
   /* Kerb brand palette */
   --ink:            #0A0A0F;
   --cloud:          #F8F8FA;
+  --copper:         #A0714A;
+  --copper-light:   #C49272;
   --platinum:       #C4C6CC;
   --platinum-deep:  #A8AAB0;
-  --stone:          #6E6E73;
+  --stone:          #78716C;
   --charcoal:       #1C1C1E;
   --silver-line:    #E5E5E7;
 
@@ -73,18 +77,18 @@
   --card-foreground:        #0A0A0F;
   --popover:                #FFFFFF;
   --popover-foreground:     #0A0A0F;
-  --primary:                #0A0A0F;
+  --primary:                #A0714A;
   --primary-foreground:     #FFFFFF;
   --secondary:              #F8F8FA;
   --secondary-foreground:   #0A0A0F;
   --muted:                  #F8F8FA;
-  --muted-foreground:       #6E6E73;
+  --muted-foreground:       #78716C;
   --accent:                 #F8F8FA;
   --accent-foreground:      #0A0A0F;
   --destructive:            oklch(0.577 0.245 27.325);
   --border:                 #E5E5E7;
   --input:                  #E5E5E7;
-  --ring:                   #C4C6CC;
+  --ring:                   #A0714A;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -108,18 +112,18 @@
   --card-foreground:        #FFFFFF;
   --popover:                #1C1C1E;
   --popover-foreground:     #FFFFFF;
-  --primary:                #C4C6CC;
+  --primary:                #C49272;
   --primary-foreground:     #0A0A0F;
   --secondary:              #1C1C1E;
   --secondary-foreground:   #FFFFFF;
   --muted:                  #1C1C1E;
-  --muted-foreground:       #6E6E73;
+  --muted-foreground:       #A09490;
   --accent:                 #1C1C1E;
   --accent-foreground:      #FFFFFF;
   --destructive:            oklch(0.704 0.191 22.216);
   --border:                 #1C1C1E;
   --input:                  rgba(255,255,255,0.1);
-  --ring:                   #6E6E73;
+  --ring:                   #A0714A;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
