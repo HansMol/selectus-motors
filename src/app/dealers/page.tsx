@@ -208,7 +208,7 @@ export default function DealersPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#E5E5E7] border border-[#E5E5E7] rounded-lg overflow-hidden">
           {PROBLEMS.map(({ label, title, body }) => (
             <div key={label} className="bg-white p-10">
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#D04545] mb-3.5">{label}</p>
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[#A0714A] mb-3.5">{label}</p>
               <h3 className="text-[18px] font-semibold text-[#0A0A0F] leading-[1.3] mb-2.5">{title}</h3>
               <p className="text-[15px] text-[#6E6E73] leading-[1.7]">{body}</p>
             </div>
