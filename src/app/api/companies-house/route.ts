@@ -1,3 +1,4 @@
+import { auth } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export interface CompanyResult {
@@ -10,6 +11,9 @@ export interface CompanyResult {
 }
 
 export async function GET(request: NextRequest) {
+  const { userId } = await auth()
+  if (!userId) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
+
   const q = request.nextUrl.searchParams.get('q')
 
   if (!q || q.trim().length < 2) {

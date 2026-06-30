@@ -8,7 +8,17 @@ export async function POST(req: NextRequest) {
 
   const { filename, contentType } = await req.json() as { filename: string; contentType: string }
 
-  const ext = filename.split('.').pop() ?? 'jpg'
+  const ALLOWED_TYPES: Record<string, string> = {
+    'image/jpeg': 'jpg',
+    'image/png':  'png',
+    'image/webp': 'webp',
+    'image/heic': 'heic',
+  }
+  if (!ALLOWED_TYPES[contentType]) {
+    return Response.json({ error: 'File type not allowed' }, { status: 400 })
+  }
+
+  const ext = ALLOWED_TYPES[contentType]
   const path = `${userId}/${Date.now()}.${ext}`
 
   const supabase = createServerClient()

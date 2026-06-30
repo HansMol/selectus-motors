@@ -44,11 +44,34 @@ export async function POST(request: Request) {
     }
   }
 
-  const verifiedVia = body.isSoleTrader
-    ? 'Stripe Identity (pending)'
-    : body.companyStatus === 'active'
-      ? 'Companies House (auto)'
-      : 'Manual review required'
+  // Re-verify company status server-side — never trust the client's claim
+  let verifiedCompanyStatus: string | null = null
+  let verifiedVia = 'Manual review required'
+  let dealerStatus: 'pending' | 'approved' = 'pending'
+
+  if (body.isSoleTrader) {
+    verifiedVia = 'Stripe Identity (pending)'
+  } else if (body.companyNumber) {
+    const chKey = process.env.COMPANIES_HOUSE_API_KEY
+    if (chKey) {
+      try {
+        const chRes = await fetch(
+          `https://api.company-information.service.gov.uk/company/${encodeURIComponent(body.companyNumber)}`,
+          { headers: { Authorization: `Basic ${btoa(`${chKey}:`)}` } }
+        )
+        if (chRes.ok) {
+          const chData = await chRes.json()
+          verifiedCompanyStatus = chData.company_status ?? null
+          if (verifiedCompanyStatus === 'active') {
+            verifiedVia = 'Companies House (auto)'
+            dealerStatus = 'approved'
+          }
+        }
+      } catch {
+        // Non-fatal — registration proceeds as pending, reviewed manually
+      }
+    }
+  }
 
   const { data, error } = await supabase
     .from('dealers')
@@ -60,7 +83,7 @@ export async function POST(request: Request) {
       phone:            body.phone,
       business_name:    body.businessName,
       company_number:   body.companyNumber || null,
-      company_status:   body.isSoleTrader ? 'sole-trader' : (body.companyStatus || null),
+      company_status:   body.isSoleTrader ? 'sole-trader' : (verifiedCompanyStatus || null),
       city:             body.city,
       postcode:         body.postcode,
       website:          body.website || null,
@@ -68,7 +91,7 @@ export async function POST(request: Request) {
       inventory_size:   body.inventorySize,
       price_range:      body.priceRange,
       verified_via:     verifiedVia,
-      status:           body.companyStatus === 'active' ? 'approved' : 'pending',
+      status:           dealerStatus,
       plan:             body.plan ?? 'solo',
       stripe_customer_id: stripeCustomerId,
     })

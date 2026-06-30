@@ -1,4 +1,5 @@
 import Stripe from 'stripe'
+import { auth } from '@clerk/nextjs/server'
 import { NextRequest } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 
@@ -42,6 +43,9 @@ async function ensurePrice(stripe: Stripe, key: keyof typeof PRICES): Promise<st
 }
 
 export async function POST(req: NextRequest) {
+  const { userId } = await auth()
+  if (!userId) return Response.json({ error: 'Unauthorised' }, { status: 401 })
+
   const key = process.env.STRIPE_SECRET_KEY
   if (!key || key === 'sk_test_REPLACE_ME') {
     return Response.json({ error: 'Stripe not configured' }, { status: 503 })
@@ -57,6 +61,7 @@ export async function POST(req: NextRequest) {
     .from('dealers')
     .select('plan, stripe_customer_id, email, first_name, last_name')
     .eq('id', dealerId)
+    .eq('clerk_user_id', userId)
     .single()
 
   if (error || !dealer) {

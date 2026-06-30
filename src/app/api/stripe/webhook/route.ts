@@ -29,15 +29,24 @@ export async function POST(req: NextRequest) {
   // ── Stripe Identity ────────────────────────────────────────────────────────
 
   if (event.type === 'identity.verification_session.verified') {
-    const session = event.data.object as Stripe.Identity.VerificationSession
-    const email   = session.metadata?.email ?? 'unknown'
-    const name    = session.metadata?.name  ?? 'unknown'
+    const session       = event.data.object as Stripe.Identity.VerificationSession
+    const email         = session.metadata?.email ?? 'unknown'
+    const name          = session.metadata?.name  ?? 'unknown'
+    const clerkUserId   = session.metadata?.clerk_user_id
     console.log(`[Identity] VERIFIED — ${name} <${email}> · ${session.id}`)
 
-    await supabase
-      .from('dealers')
-      .update({ verified_via: 'Stripe Identity (verified)', status: 'approved' })
-      .eq('email', email)
+    if (clerkUserId) {
+      await supabase
+        .from('dealers')
+        .update({ verified_via: 'Stripe Identity (verified)', status: 'approved' })
+        .eq('clerk_user_id', clerkUserId)
+    } else {
+      // Fallback for sessions created before the clerk_user_id metadata was added
+      await supabase
+        .from('dealers')
+        .update({ verified_via: 'Stripe Identity (verified)', status: 'approved' })
+        .eq('email', email)
+    }
   }
 
   if (event.type === 'identity.verification_session.requires_input') {
