@@ -1,6 +1,6 @@
 # Kerb — Functional Specification
 
-*Last updated: 2026-06-17 (rev 3 — enquiry routing, billing trigger, photo upload wired on new + edit, Companies House monitor)*
+*Last updated: 2026-06-30 (rev 4 — security hardening: HTML injection fix, server-side company verification, API authentication gaps closed)*
 
 ---
 
@@ -45,7 +45,7 @@ Kerb is a UK car marketplace. Verified dealers list their vehicles. Buyers searc
    - Step 1: Personal details (name, email, phone)
    - Step 2: Business details — Companies House lookup auto-verifies registered UK companies. Manual entry also allowed.
    - Step 3: Specialisms (makes, inventory size, price range)
-3. On submit: dealer row created in Supabase with `status: approved` (if Companies House verified) or `status: pending`
+3. On submit: server re-verifies company status via Companies House API — never trusts client. `status: approved` only if Companies House confirms `active`. Otherwise `status: pending`.
 4. Redirected to `/dashboard`
 
 ### Dashboard
@@ -101,6 +101,25 @@ Organic search results are ordered by relevance and recency only. No dealer can 
 
 ---
 
+## Security model
+
+| Surface | Control |
+|---|---|
+| Dashboard + dealer routes | Clerk auth via middleware — hard redirect to `/sign-in` |
+| `/api/listings`, `/api/dealers/register` | `auth()` check — 401 if no session |
+| `/api/stripe/checkout` | `auth()` + dealer `clerk_user_id` match — prevents cross-account session creation |
+| `/api/stripe/identity` | `auth()` — prevents unauthenticated identity session creation |
+| `/api/companies-house` | `auth()` — prevents API key drain |
+| `/api/listings/[id]` PATCH + DELETE | Ownership check — `dealer_id` must match the authenticated user's dealer |
+| Company verification | Server-side Companies House call — client `companyStatus` is never trusted |
+| Stripe webhook | Signature verified with `constructEvent` before processing |
+| Identity webhook | Matches on `clerk_user_id` (not email) to prevent spoofing |
+| Upload file types | Server allowlist: JPEG, PNG, WebP, HEIC only |
+| Enquiry email HTML | All user-supplied strings HTML-escaped before insertion |
+| Secrets | Service role key + all API keys server-only — never exposed to client |
+
+---
+
 ## Background operations
 
 ### Companies House monthly monitor
@@ -114,19 +133,20 @@ Organic search results are ordered by relevance and recency only. No dealer can 
 
 ## What's built ✅
 
-- Dealer registration with Companies House auto-verify
-- Clerk authentication (sign in/up, protected routes)
+- Dealer registration with Companies House auto-verify (server-side re-verification)
+- Clerk authentication (sign in/up, protected routes, middleware)
 - New listing wizard with photo upload (cover + grid, drag-and-drop, up to 20)
 - Edit listing with photo management (add/remove, pre-loaded from database)
 - Delete listing
 - Homepage and search pulling real Supabase data
 - Car detail page with dealer card and wired enquiry form
-- Buyer enquiry → Resend email direct to dealer
+- Buyer enquiry → Resend email direct to dealer (HTML-escaped, UUID-validated)
 - Billing trigger on first enquiry → Stripe checkout link emailed to dealer
 - Dashboard with stats and listings table
 - Analytics: Google Analytics 4, Clarity, Search Console
 - Companies House monthly monitoring cron + Resend alert email
 - Dealer acquisition landing page with screenshots
+- Security hardening: auth on all API routes, HTML injection prevention, server-side verification, file type validation (30 Jun 2026)
 
 ---
 
