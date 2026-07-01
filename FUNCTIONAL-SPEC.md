@@ -1,6 +1,6 @@
 # Kerb — Functional Specification
 
-*Last updated: 2026-06-30 (rev 4 — security hardening: HTML injection fix, server-side company verification, API authentication gaps closed)*
+*Last updated: 2026-07-01 (rev 5 — public search excludes photo-less listings)*
 
 ---
 
@@ -92,7 +92,7 @@ Multi-step wizard:
 ## Business rules
 
 - Dealers must be Companies House verified (or manually approved) before listings go live
-- A listing only appears on homepage/search if `status = 'live'`
+- A listing only appears on homepage/search if `status = 'live'` **and** has at least one photo — photo-less listings never surface in public search, regardless of dealer
 - Edit and delete operations are scoped to the authenticated dealer's own listings
 - All buyer enquiries route directly to the dealer's registered email — Kerb is never in the conversation
 
