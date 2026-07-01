@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
         <p style="color:#6E6E73;font-size:13px;margin-bottom:4px">Message</p>
         <p style="white-space:pre-wrap;background:#F8F8FA;border:1px solid #E5E5E7;border-radius:6px;padding:16px;margin:0">${safeMessage}</p>
 
-        <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Reply directly to this email to respond to ${safeName}.<br>Kerb — <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
+        <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Reply directly to this email to respond to ${safeName}.<br>Kerb — Real Kerb Appeal. <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
       </div>
     `,
   })
@@ -194,7 +194,7 @@ export async function POST(req: NextRequest) {
                 <tr><td style="padding:8px 0;color:#6E6E73">Cancel any time</td><td style="padding:8px 0;font-weight:500">No lock-in</td></tr>
               </table>
 
-              <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Questions? Reply to this email.<br>Kerb — <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
+              <p style="margin-top:32px;font-size:13px;color:#A8AAB0">Questions? Reply to this email.<br>Kerb — Real Kerb Appeal. <a href="${baseUrl}" style="color:#A8AAB0">${baseUrl.replace('https://', '')}</a></p>
             </div>
           `,
         })

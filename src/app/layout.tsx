@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: { default: 'Kerb — Find Your Next Car', template: '%s | Kerb' },
-  description: 'The UK car marketplace built on transparency. Verified dealers, direct contact, no games.',
+  description: 'Real Kerb Appeal. The UK car marketplace built on transparency. Verified dealers, direct contact, no games.',
   keywords: ['used cars', 'buy car', 'sell car', 'car marketplace', 'UK cars', 'Kerb'],
   icons: {
     icon: '/favicon.svg',
@@ -68,7 +68,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </svg>
                   <span className="text-[15px] font-medium tracking-[0.32em] uppercase text-[#0A0A0F]">Kerb</span>
                 </a>
-                <p className="mt-2 text-sm text-[#6E6E73] max-w-xs">The UK car marketplace built on transparency. Verified dealers, direct contact, no games.</p>
+                <p className="mt-2 text-sm font-medium text-[#0A0A0F]">Real Kerb Appeal.</p>
+                <p className="mt-1 text-sm text-[#6E6E73] max-w-xs">The UK car marketplace built on transparency. Verified dealers, direct contact, no games.</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">
                 <div className="space-y-2">

@@ -16,6 +16,9 @@ export default async function ComingSoonPage({
       {/* ── Hero ── */}
       <section className="px-6 sm:px-10 lg:px-20 pt-20 pb-20 border-b border-[#1C1C1E]">
         <div className="max-w-5xl">
+          <p className="text-[13px] font-semibold tracking-[0.04em] text-[#A0714A] mb-3">
+            Real Kerb Appeal.
+          </p>
           <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#C4C6CC] mb-10 flex items-center gap-3 before:content-[''] before:block before:w-5 before:h-px before:bg-[#C4C6CC]">
             UK Car Marketplace — Launching August 2026
           </p>

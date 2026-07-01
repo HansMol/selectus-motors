@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'For Dealers — Kerb',
-  description: 'The UK car marketplace built for dealers. Every enquiry goes direct to you. No platform inbox, no reservation gates, no intermediation. Free to list.',
+  description: 'Real Kerb Appeal. The UK car marketplace built for dealers. Every enquiry goes direct to you. No platform inbox, no reservation gates, no intermediation. Free to list.',
 }
 
 const PROBLEMS = [
@@ -157,6 +157,7 @@ export default function DealersPage() {
       <section className="px-6 sm:px-10 lg:px-16 pt-[76px] pb-20 min-h-screen flex flex-col justify-between gap-16">
         <div className="flex items-start gap-16 flex-col lg:flex-row">
           <div className="max-w-[520px] flex-shrink-0">
+            <p className="text-[13px] font-semibold tracking-[0.04em] text-[#A0714A] mb-4">Real Kerb Appeal.</p>
             <SectionLabel>The UK car marketplace built for dealers</SectionLabel>
             <h1 className="text-[clamp(52px,6vw,80px)] font-light leading-[1.06] tracking-[-0.01em] mb-9">
               Your buyer calls you.<br />
