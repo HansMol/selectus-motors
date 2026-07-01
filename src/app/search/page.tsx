@@ -22,6 +22,7 @@ export default async function SearchPage({
     .from('listings')
     .select('*')
     .eq('status', 'live')
+    .not('photos', 'eq', '{}')
 
   if (q) {
     query = query.or(`make.ilike.%${q}%,model.ilike.%${q}%,description.ilike.%${q}%`)
