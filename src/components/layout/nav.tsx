@@ -29,6 +29,9 @@ export function Nav() {
             <Link href="/dealers/" className="text-sm font-medium text-[#6E6E73] hover:text-white transition-colors">
               Dealers
             </Link>
+            <Link href="/guides" className="text-sm font-medium text-[#6E6E73] hover:text-white transition-colors">
+              Guides
+            </Link>
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
@@ -73,6 +76,7 @@ export function Nav() {
         <div className="md:hidden border-t border-[rgba(255,255,255,0.05)] bg-[#0A0A0F] px-4 py-4 space-y-3">
           <Link href="/search" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Search Cars</Link>
           <Link href="/dealers/" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Dealers</Link>
+          <Link href="/guides" className="block text-sm font-medium text-[#6E6E73] hover:text-white py-2 transition-colors">Guides</Link>
           <div className="pt-2 border-t border-[#1C1C1E] flex gap-3">
             {isSignedIn ? (
               <>
