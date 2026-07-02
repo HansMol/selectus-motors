@@ -4,10 +4,10 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About Kerb',
-  description: 'Kerb is a UK car marketplace where dealers list cars without inflated fees or algorithm penalties. Verified dealers, direct contact, no middleman.',
+  description: 'Kerb is a UK car marketplace built for dealers. List without platform fees or algorithm penalties. Buyers contact you directly.',
   openGraph: {
     title: 'About Kerb — Real Kerb Appeal',
-    description: 'Kerb is a UK car marketplace where dealers list cars without inflated fees or algorithm penalties. Verified dealers, direct contact, no middleman.',
+    description: 'Kerb is a UK car marketplace built for dealers. List without platform fees or algorithm penalties. Buyers contact you directly.',
     type: 'website',
   },
 }
@@ -87,10 +87,10 @@ export default function AboutPage() {
         <div className="mb-14">
           <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#A0714A] mb-3">About Kerb</p>
           <h1 className="text-4xl font-light text-[#0A0A0F] tracking-tight leading-snug mb-6">
-            A marketplace that works<br />for the dealer, not the platform.
+            Running a dealership in 2026 is harder than it should be.
           </h1>
           <p className="text-[#6E6E73] text-lg leading-relaxed">
-            AutoTrader has become insanely expensive. Dealers are being squeezed — paying enormous fees, having their listings ranked by algorithms, and being penalised if their prices don't match what the platform thinks a car should cost. Kerb exists to change that.
+            Consumer confidence is soft. Good stock is expensive and hard to find. Energy, staffing, and premises costs keep rising. And on top of all that, the platforms dealers depend on to sell cars are charging more, penalising prices they don't like, and deciding which listings get seen. Kerb exists to take that last part off the table.
           </p>
         </div>
 
@@ -102,13 +102,13 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold text-[#0A0A0F] mb-5">How Kerb started</h2>
           <div className="space-y-4 text-[#6E6E73] leading-relaxed">
             <p>
-              Hans Mol was watching an interview on Cars &amp; Money. The hosts were talking about how expensive AutoTrader had become for dealers — and how the platform's algorithms now control whether a listing is shown at all, based on pricing decisions that are out of the dealer's hands.
+              Dealers are under real pressure — rising operating costs, cautious buyers, stock that's harder and more expensive to source. The platforms they depend on to sell cars are quietly making things worse: fees going up, algorithms deciding which listings get seen, pricing penalties for dealers who know their own market better than any platform does.
             </p>
             <p>
-              Hans ran the numbers. Looked at the effort required to build an alternative. And took the leap. He had just launched <a href="https://icecleanworks.com" className="text-[#A0714A] hover:text-[#8A6040] transition-colors">Ice Clean Works</a>, a specialist car protection business — so he was already deep in the car world. Building a marketplace felt like a natural extension.
+              Buyers aren't getting a better deal either. More listings, more noise, harder to know who to trust.
             </p>
             <p>
-              Kerb launched in 2026, built in Dorset.
+              We built Kerb to fix both sides of that. A marketplace that doesn't squeeze dealers on fees or game their listings — and that gives buyers a cleaner, more trustworthy way to find a car.
             </p>
           </div>
         </div>
@@ -178,9 +178,14 @@ export default function AboutPage() {
         {/* Vision */}
         <div className="mb-14">
           <h2 className="text-xl font-semibold text-[#0A0A0F] mb-4">Where we're going</h2>
-          <p className="text-[#6E6E73] leading-relaxed">
-            In two years, Kerb should be a significant contributor to the UK used car market. Not by doing what the existing platforms do — but by being the place that dealers trust because it doesn't squeeze them, and that buyers trust because what they see is real. An efficient tool for finding and sourcing a car. A platform dealers can use without gatekeeping.
-          </p>
+          <div className="space-y-4 text-[#6E6E73] leading-relaxed">
+            <p>
+              Real Kerb Appeal isn't about paid rankings or platform games. It's what happens when the right buyer finds the right car, from a dealer they can trust — with nothing in the middle extracting value from both sides.
+            </p>
+            <p>
+              That's the marketplace we're building. Not the biggest — the most trusted. A place dealers choose because it doesn't squeeze them, and buyers return to because what they see is real.
+            </p>
+          </div>
         </div>
 
         {/* Divider */}
