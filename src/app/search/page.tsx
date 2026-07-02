@@ -18,6 +18,15 @@ export default async function SearchPage({
   const { q, make, bodyType, sort } = params
 
   const supabase = createServerClient()
+
+  const { data: makesData } = await supabase
+    .from('listings')
+    .select('make')
+    .eq('status', 'live')
+    .not('photos', 'eq', '{}')
+    .not('make', 'is', null)
+  const availableMakes = [...new Set((makesData ?? []).map(l => l.make as string))].sort()
+
   let query = supabase
     .from('listings')
     .select('*')
@@ -62,7 +71,7 @@ export default async function SearchPage({
         <div className="hidden lg:block w-64 shrink-0">
           <div className="sticky top-24">
             <Suspense fallback={<div className="h-96 bg-white rounded-xl border border-[#E5E5E7] animate-pulse" />}>
-              <SearchFilters />
+              <SearchFilters makes={availableMakes} />
             </Suspense>
           </div>
         </div>

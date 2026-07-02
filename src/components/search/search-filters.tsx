@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 
-const makes = ['BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Ford', 'Toyota', 'Honda', 'Mazda', 'Porsche', 'Volvo', 'Jaguar', 'Land Rover']
 const bodyTypes = [
   { value: 'hatchback', label: 'Hatchback' },
   { value: 'saloon', label: 'Saloon' },
@@ -30,7 +29,7 @@ const transmissions = [
   { value: 'automatic', label: 'Automatic' },
 ]
 
-export function SearchFilters() {
+export function SearchFilters({ makes }: { makes: string[] }) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
