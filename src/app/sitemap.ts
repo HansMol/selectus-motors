@@ -21,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://kerb.autos/search', lastModified: new Date(), changeFrequency: 'always', priority: 0.9 },
     { url: 'https://kerb.autos/dealers', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: 'https://kerb.autos/about', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: 'https://kerb.autos/contact', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: 'https://kerb.autos/advice', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: 'https://kerb.autos/advice/how-to-buy-a-used-car-uk', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: 'https://kerb.autos/terms', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
