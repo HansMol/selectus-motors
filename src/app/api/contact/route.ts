@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
   await resend.emails.send({
     from: 'Kerb <hello@kerb.autos>',
-    to: 'hansn.mol@gmail.com',
+    to: 'hans@kerb.autos',
     replyTo: email,
     subject: `Contact — ${name} (${safeRole})`,
     html: `
