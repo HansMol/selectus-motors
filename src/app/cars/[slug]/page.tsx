@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import {
   MapPin, Gauge, Fuel, Settings, Calendar, ChevronRight,
@@ -10,16 +11,72 @@ import EnquiryForm from './enquiry-form'
 
 type ListingWithDealer = ListingRow & { dealers: DealerRow | null }
 
+function buildVehicleJsonLd(listing: ListingWithDealer) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Vehicle',
+    name: `${listing.year} ${listing.make} ${listing.model}`,
+    brand: { '@type': 'Brand', name: listing.make },
+    model: listing.model,
+    vehicleModelDate: listing.year.toString(),
+    mileageFromOdometer: {
+      '@type': 'QuantitativeValue',
+      value: listing.mileage,
+      unitCode: 'SMI',
+    },
+    fuelType: listing.fuel_type,
+    vehicleTransmission: listing.transmission,
+    bodyType: listing.body_type,
+    color: listing.colour,
+    image: listing.photos?.[0] ?? undefined,
+    offers: {
+      '@type': 'Offer',
+      price: listing.price,
+      priceCurrency: 'GBP',
+      availability: 'https://schema.org/InStock',
+      url: `https://kerb.autos/cars/${listing.id}`,
+      seller: listing.dealers ? {
+        '@type': 'AutoDealer',
+        name: listing.dealers.business_name,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: listing.dealers.city,
+          postalCode: listing.dealers.postcode,
+          addressCountry: 'GB',
+        },
+      } : undefined,
+    },
+  }
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const supabase = createServerClient()
   const { data } = await supabase
     .from('listings')
-    .select('make, model, year')
+    .select('make, model, year, price, colour, fuel_type, photos')
     .eq('id', slug)
     .single()
   if (!data) return { title: 'Car not found' }
-  return { title: `${data.year} ${data.make} ${data.model} — Kerb` }
+  const title = `${data.year} ${data.make} ${data.model}`
+  const description = `${data.colour} ${data.fuel_type} · £${data.price.toLocaleString('en-GB')} · Available on Kerb — Real Kerb Appeal.`
+  const image = data.photos?.[0]
+  return {
+    title: `${title} — Kerb`,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      ...(image ? { images: [{ url: image, alt: title }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      ...(image ? { images: [image] } : {}),
+    },
+  }
 }
 
 export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -36,6 +93,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
   const dealer = listing.dealers
   const title = `${listing.year} ${listing.make} ${listing.model}`
+  const jsonLd = buildVehicleJsonLd(listing)
   const photos = listing.photos ?? []
 
   const specs = [
@@ -50,6 +108,8 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
   ]
 
   return (
+    <>
+    <Script id="vehicle-jsonld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-[#6E6E73] mb-6">
@@ -172,5 +232,6 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
         </div>
       </div>
     </div>
+    </>
   )
 }

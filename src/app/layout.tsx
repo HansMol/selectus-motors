@@ -18,15 +18,38 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://kerb.autos'),
   title: { default: 'Kerb — Find Your Next Car', template: '%s | Kerb' },
   description: 'Real Kerb Appeal. The UK car marketplace built on transparency. Verified dealers, direct contact, no games.',
-  keywords: ['used cars', 'buy car', 'sell car', 'car marketplace', 'UK cars', 'Kerb'],
+  keywords: ['used cars UK', 'buy used car UK', 'UK car marketplace', 'verified car dealers', 'transparent car buying', 'Kerb'],
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_SEARCH_CONSOLE_ID,
+  },
+  openGraph: {
+    title: 'Kerb — Find Your Next Car',
+    description: 'Real Kerb Appeal. The UK car marketplace built on transparency. Verified dealers, direct contact, no games.',
+    url: 'https://kerb.autos',
+    siteName: 'Kerb',
+    type: 'website',
+    locale: 'en_GB',
+    images: [
+      {
+        url: '/screenshots/hero.png',
+        width: 1200,
+        height: 630,
+        alt: 'Kerb — Real Kerb Appeal',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kerb — Find Your Next Car',
+    description: 'Real Kerb Appeal. The UK car marketplace built on transparency.',
+    images: ['/screenshots/hero.png'],
   },
 }
 

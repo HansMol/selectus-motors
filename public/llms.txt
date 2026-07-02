@@ -1,0 +1,47 @@
+# Kerb
+
+> Kerb (kerb.autos) is a UK car marketplace built for buyers, not dealers. Verified dealers, direct contact, real prices — no paid placements, no "Featured" labels, no intermediaries.
+
+## What Kerb does
+
+Kerb connects UK car buyers directly with verified dealers. Unlike traditional UK car marketplaces (AutoTrader, Motors.co.uk), Kerb does not allow dealers to pay for prominence — every listing is ranked on merit, not advertising spend. Buyers contact dealers directly; Kerb is never in the middle.
+
+## Why Kerb exists
+
+The UK used car market is dominated by platforms that charge dealers for visibility, creating a buying experience that prioritises dealer advertising budgets over buyer outcomes. Kerb was founded to fix that: a transparent marketplace where every car is shown on equal terms.
+
+## Key facts
+
+- Domain: kerb.autos
+- Tagline: Real Kerb Appeal.
+- Brand hook URL: realkerbappeal.com (redirects to kerb.autos)
+- Founded: 2026, Hampshire, England
+- Registered in England and Wales (Kerb Ltd)
+- Serves: UK car buyers and UK-based verified dealers
+- Dealer model: flat monthly subscription — no per-click fees, no paid placement, no "Featured" upsells
+- Founding dealer pricing: first 50 dealers pay £55/month (Solo) or £132/month (Pro) for life
+
+## For buyers
+
+- Free to search, browse, and enquire
+- All dealers verified before listing
+- Direct contact with dealers — no middleman
+- No misleading "Featured" listings
+
+## For dealers
+
+- Flat monthly subscription to list cars
+- Equal prominence regardless of spend
+- Enquiries go directly to the dealer
+
+## Pages
+
+- Homepage: https://kerb.autos
+- Search listings: https://kerb.autos/search
+- Dealer information: https://kerb.autos/dealers
+- Terms of service: https://kerb.autos/terms
+- Privacy policy: https://kerb.autos/privacy
+
+## Contact
+
+- General / dealer enquiries: hans@kerb.autos
