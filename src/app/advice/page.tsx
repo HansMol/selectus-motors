@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Guides',
+  title: 'Advice',
   description: 'Practical advice for buying a used car in the UK — from Kerb.',
 }
 
 const guides = [
   {
-    href: '/guides/how-to-buy-a-used-car-uk',
+    href: '/advice/how-to-buy-a-used-car-uk',
     title: 'How to buy a used car in the UK',
     description: 'Service history, fuel types, gearboxes, rust checks, OBD readers, and everything to look for before you commit.',
     date: 'July 2026',
@@ -16,12 +16,12 @@ const guides = [
   },
 ]
 
-export default function GuidesPage() {
+export default function AdvicePage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
       <div className="mb-12">
-        <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#A0714A] mb-3">Kerb Guides</p>
+        <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#A0714A] mb-3">Kerb Advice</p>
         <h1 className="text-4xl font-light text-[#0A0A0F] tracking-tight mb-4">Practical advice for car buyers</h1>
         <p className="text-[#6E6E73] text-lg leading-relaxed">No fluff. No affiliate-stuffed listicles. Just useful information to help you buy the right car.</p>
       </div>

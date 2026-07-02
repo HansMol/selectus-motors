@@ -20,7 +20,7 @@ const articleJsonLd = {
   author: { '@type': 'Person', name: 'Hans Mol' },
   publisher: { '@type': 'Organization', name: 'Kerb', url: 'https://kerb.autos' },
   datePublished: '2026-07-02',
-  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://kerb.autos/guides/how-to-buy-a-used-car-uk' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://kerb.autos/advice/how-to-buy-a-used-car-uk' },
 }
 
 function StepLabel({ n }: { n: number }) {
@@ -57,7 +57,7 @@ export default function HowToBuyPage() {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-4 mb-6">
-            <Link href="/guides" className="text-xs text-[#78716C] hover:text-[#0A0A0F] transition-colors">Guides</Link>
+            <Link href="/advice" className="text-xs text-[#78716C] hover:text-[#0A0A0F] transition-colors">Advice</Link>
             <span className="text-[#E5E5E7]">/</span>
             <span className="text-xs text-[#78716C]">July 2026</span>
           </div>
