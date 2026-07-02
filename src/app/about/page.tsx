@@ -203,19 +203,22 @@ export default function AboutPage() {
         {/* CTA */}
         <div className="bg-[#0A0A0F] rounded-md p-8 text-center">
           <p className="text-xs font-semibold tracking-[0.18em] uppercase text-[#A0714A] mb-3">Real Kerb Appeal.</p>
-          <p className="text-white text-xl font-light mb-6">Ready to find your next car?</p>
-          <div className="flex gap-3 justify-center flex-wrap">
+          <p className="text-white text-xl font-light mb-6">List your cars. Search the inventory.</p>
+          <div className="flex gap-3 justify-center flex-wrap items-start">
+            <div className="flex flex-col items-center gap-1.5">
+              <Link
+                href="/dealers"
+                className="bg-[#A0714A] hover:bg-[#8A6040] text-white px-6 py-2.5 rounded text-sm font-medium transition-colors no-underline"
+              >
+                List your cars
+              </Link>
+              <p className="text-white/40 text-xs">Dealers only</p>
+            </div>
             <Link
               href="/search"
-              className="bg-[#A0714A] hover:bg-[#8A6040] text-white px-6 py-2.5 rounded text-sm font-medium transition-colors no-underline"
-            >
-              Search cars
-            </Link>
-            <Link
-              href="/dealers"
               className="border border-white/20 hover:border-white/40 text-white px-6 py-2.5 rounded text-sm font-medium transition-colors no-underline"
             >
-              List your cars
+              Search cars
             </Link>
           </div>
         </div>
