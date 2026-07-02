@@ -86,7 +86,7 @@ export default function AboutPage() {
             Running a dealership in 2026 is harder than it should be.
           </h1>
           <p className="text-[#6E6E73] text-lg leading-relaxed">
-            Consumer confidence is soft. Good stock is expensive and hard to find. Energy, staffing, and premises costs keep rising. And on top of all that, the platforms dealers depend on to sell cars are charging more, penalising prices they don't like, and deciding which listings get seen. Kerb exists to take that last part off the table.
+            Consumer confidence is soft. Good stock is expensive and hard to find. Energy, staffing, and premises costs keep rising. And on top of all that, the platforms dealers depend on to sell cars are charging more, labelling their cars as overpriced against benchmarks they don't control, and burying standard listings behind paid ads. Kerb exists to take that last part off the table.
           </p>
         </div>
 
