@@ -23,7 +23,7 @@ const faqItems = [
   },
   {
     question: 'How are dealers verified on Kerb?',
-    answer: 'Dealers are verified through a combination of Companies House integration (confirming they are an active, registered business in the UK) and identity verification through Stripe. We only approve dealers who pass both checks.',
+    answer: 'Registered UK businesses are verified against Companies House — we confirm the company is active before the account is approved. Sole traders go through a manual review process.',
   },
   {
     question: 'What happens when I contact a dealer through Kerb?',
@@ -36,10 +36,6 @@ const faqItems = [
   {
     question: 'Where is Kerb available?',
     answer: 'Kerb is launching nationally across the UK.',
-  },
-  {
-    question: 'Who built Kerb?',
-    answer: 'Kerb was founded by Hans Mol, based in Dorset. Hans also runs Ice Clean Works, a specialist car protection and detailing business — which is where the idea for Kerb began.',
   },
   {
     question: 'How do dealers join Kerb?',
